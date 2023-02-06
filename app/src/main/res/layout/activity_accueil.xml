@@ -10,24 +10,27 @@
 
     <TextView
         android:id="@+id/terrain1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_width="86dp"
+        android:layout_height="82dp"
+        android:text="Terrain 1 : terre battue 23,77m x 8,23m "
         app:layout_constraintBottom_toTopOf="@+id/terrain2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.369"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.577" />
 
     <TextView
         android:id="@+id/terrain2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_width="96dp"
+        android:layout_height="74dp"
+        android:text="Terrain 2 : gazon artificiel 23,77m x 8,23m "
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -35,7 +38,7 @@
         android:layout_height="77dp"
         android:layout_marginTop="84dp"
         app:layout_constraintEnd_toStartOf="@+id/terrain2"
-        app:layout_constraintHorizontal_bias="0.804"
+        app:layout_constraintHorizontal_bias="0.303"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:srcCompat="@drawable/terrain" />
@@ -44,9 +47,9 @@
         android:id="@+id/imageView2"
         android:layout_width="95dp"
         android:layout_height="77dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="112dp"
         app:layout_constraintEnd_toStartOf="@+id/terrain1"
-        app:layout_constraintHorizontal_bias="0.804"
+        app:layout_constraintHorizontal_bias="0.276"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/terrain" />
@@ -55,7 +58,7 @@
         android:id="@+id/resT1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/resT1"
         app:layout_constraintBottom_toTopOf="@+id/resT2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/terrain1"
@@ -66,7 +69,7 @@
         android:id="@+id/resT2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/resT2"
         app:layout_constraintBottom_toBottomOf="@+id/terrain2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/terrain2"
@@ -77,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="68dp"
-        android:text="Button"
+        android:text="@string/chat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -88,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
-        android:text="TextView"
+        android:text="@string/res"
         app:layout_constraintBottom_toTopOf="@+id/chat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
