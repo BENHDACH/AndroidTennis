@@ -11,23 +11,24 @@ import com.example.whykotlin.databinding.ActivityAccueilBinding
 enum class Category {RESERVATIONT1, RESERVATIONT2, RESERVATIONS, TCHAT}
 class AccueilActivity : AppCompatActivity() {
 
-    companion object{
+    /*companion object{
         val extraKey = "extraKey"
-    }
+    }*/
     lateinit var binding: ActivityAccueilBinding
     lateinit var currentCategory: Category
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_accueil)
+        binding = ActivityAccueilBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val category = intent.getSerializableExtra(extraKey) as? Category
+        val category = intent.getSerializableExtra(ChatActivity.extraKey) as? Category
 
         currentCategory = category ?: Category.RESERVATIONT1
 
         //supportActionBar?.title = categoryName()
 
-        //buttonsListener()
+        buttonsListener()
     }
 
     override fun onStart() {
