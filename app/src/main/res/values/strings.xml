@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Tennis</string>
+
+    <string name="resT1">reservationT1</string>
+    <string name="resT2">reservationT2</string>
+    <string name="res">reservations</string>
+    <string name="chat">tchat</string>
+
 </resources>
+
