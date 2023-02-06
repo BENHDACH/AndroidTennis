@@ -27,7 +27,7 @@ class AccueilActivity : AppCompatActivity() {
 
         //supportActionBar?.title = categoryName()
 
-        //buttonsListener()
+        buttonsListener()
     }
 
     override fun onStart() {
