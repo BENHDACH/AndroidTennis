@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccueilActivity">
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
+    tools:context=".Accueil">
 
     <TextView
         android:id="@+id/terrain1"
@@ -13,6 +15,7 @@
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/terrain2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,22 +33,22 @@
         android:id="@+id/imageView"
         android:layout_width="95dp"
         android:layout_height="77dp"
+        android:layout_marginTop="84dp"
         app:layout_constraintEnd_toStartOf="@+id/terrain2"
         app:layout_constraintHorizontal_bias="0.804"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/terrain"
-        tools:layout_editor_absoluteY="224dp" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/terrain" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="95dp"
         android:layout_height="77dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        android:layout_marginTop="108dp"
         app:layout_constraintEnd_toStartOf="@+id/terrain1"
         app:layout_constraintHorizontal_bias="0.804"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.616"
         app:srcCompat="@drawable/terrain" />
 
     <Button
@@ -57,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/terrain1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.557" />
+        app:layout_constraintVertical_bias="0.521" />
 
     <Button
         android:id="@+id/resT2"
@@ -68,4 +71,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/terrain2"
         app:layout_constraintTop_toTopOf="@+id/terrain2" />
+
+    <Button
+        android:id="@+id/chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/dejares"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/chat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
