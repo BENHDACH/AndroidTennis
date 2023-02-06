@@ -12,6 +12,7 @@
         android:theme="@style/Theme.WhyKotlin"
         tools:targetApi="31">
         <activity
+            android:name=".ClendrierActivity"
             android:name=".Accueil"
             android:exported="false" />
         <activity
