@@ -31,18 +31,21 @@
         android:layout_width="95dp"
         android:layout_height="77dp"
         app:layout_constraintEnd_toStartOf="@+id/terrain2"
+        app:layout_constraintHorizontal_bias="0.804"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/terrain"
-        tools:layout_editor_absoluteY="212dp" />
+        tools:layout_editor_absoluteY="224dp" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="95dp"
         android:layout_height="77dp"
-        app:layout_constraintBottom_toBottomOf="@+id/terrain1"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toStartOf="@+id/terrain1"
+        app:layout_constraintHorizontal_bias="0.804"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/terrain1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.616"
         app:srcCompat="@drawable/terrain" />
 
     <Button
@@ -53,7 +56,8 @@
         app:layout_constraintBottom_toTopOf="@+id/resT2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/terrain1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.557" />
 
     <Button
         android:id="@+id/resT2"
