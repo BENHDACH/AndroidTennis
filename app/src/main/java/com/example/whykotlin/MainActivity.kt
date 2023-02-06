@@ -15,6 +15,7 @@ data class User(val username: String? = null, val email: String? = null) {
 
 class MainActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         Data.database.child("users").child(userId).setValue(user)
     }
+
+
 
 
 
