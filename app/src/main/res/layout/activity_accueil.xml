@@ -58,6 +58,7 @@
         android:id="@+id/resT1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/purple_200"
         android:text="@string/resT1"
         app:layout_constraintBottom_toTopOf="@+id/resT2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,32 +77,29 @@
         app:layout_constraintTop_toTopOf="@+id/terrain2" />
 
     <Button
-        android:id="@+id/chat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
-        android:text="@string/chat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/ajoutadh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ajoutadh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/dejares"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
         android:text="@string/res"
-        app:layout_constraintBottom_toTopOf="@+id/chat"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/terrain2" />
+
+    <ImageView
+        android:id="@+id/chat"
+        android:layout_width="50dp"
+        android:layout_height="53dp"
+        android:src="@drawable/microsoftteams_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ajoutadh"
+        android:layout_width="70dp"
+        android:layout_height="53dp"
+        android:src="@drawable/aa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
