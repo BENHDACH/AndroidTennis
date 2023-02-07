@@ -45,7 +45,6 @@ class AccueilActivity : AppCompatActivity() {
         }
 
     }
-
     override fun onDestroy() {
         Log.d( "onDestroy", "AccueilActivity destroy")
         super.onDestroy()
