@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whykotlin.databinding.CellHourBinding
+import java.util.Calendar
+import java.util.Locale
 
 class Adapter() :RecyclerView.Adapter<Adapter.CellViewHolder>() {
     class CellViewHolder(binding: CellHourBinding): RecyclerView.ViewHolder(binding.root) {
@@ -26,7 +28,13 @@ class Adapter() :RecyclerView.Adapter<Adapter.CellViewHolder>() {
         //val plate = items[position]
         val hour = position / 8 //Chaque ligne de 8 element on revient à la ligne donc chaque ligne est une heure
         val weekDay = position % 8 //Chaque colonne
-        val days = listOf("Lun","Mar", "Mer", "Jeu", "Ven", "Sam", "Dim")
+        //--------
+        val calendar = Calendar.getInstance()
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault())
+        val currentT = "$dayOfMonth - $month"
+        //--------
+        val days = listOf("Lun ${currentT}","Mar", "Mer", "Jeu", "Ven", "Sam", "Dim")
         if(hour == 0 && weekDay != 0){
             holder.hourLabel.text = days[weekDay - 1]
             //holder.hourLabled.rotation = -60F
