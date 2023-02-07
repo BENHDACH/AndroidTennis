@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Tennis</string>
 
-    <string name="resT1">ReservationT1</string>
-    <string name="resT2">ReservationT2</string>
-    <string name="res">Reservations</string>
+    <string name="resT1">Reserver-T1</string>
+    <string name="resT2">Reserver-T2</string>
+    <string name="res">Reservations en cours</string>
     <string name="chat">Chat</string>
     <string name="ajoutadh">ajoutadherant</string>
     <string name="enregistre">Enregistrer</string>
