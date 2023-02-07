@@ -7,5 +7,7 @@
     <string name="chat">Chat</string>
     <string name="ajoutadh">ajoutadherant</string>
     <string name="enregistre">Enregistrer</string>
+    <string name="nomDate">Date</string>
+    <string name="nomTime">Heure</string>
 </resources>
 
