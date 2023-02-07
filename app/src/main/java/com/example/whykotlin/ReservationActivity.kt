@@ -41,7 +41,8 @@ class ReservationActivity : AppCompatActivity() {
         Log.d("LifeCycle", "MenuActivity onStart")
     }
     private fun ShowAdh() {
-        binding.idReserv.text = "ThierryH"
+       // binding.idReserv.text = "ThierryH"
+
 
     }
 }
