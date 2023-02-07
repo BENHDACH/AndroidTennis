@@ -23,6 +23,7 @@ class ClendrierActivity : AppCompatActivity() {
 
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 8)
+
         binding.recyclerView.adapter = Adapter() { weekday, hour ->
             val intent = Intent(this, ReservationActivity::class.java)
             intent.putExtra("Heure","${hour+6}")

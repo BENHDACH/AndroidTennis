@@ -4,8 +4,10 @@ import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.whykotlin.databinding.ActivityClendrierBinding
 import com.example.whykotlin.databinding.CellHourBinding
 import java.util.Calendar
 import java.util.Locale
@@ -67,9 +69,10 @@ class Adapter(val clickListener: (Int, Int) -> Unit) :RecyclerView.Adapter<Adapt
         else if(weekDay == samedi && hour >= 4 && hour <= 11){
             holder.hourLabel.text = "X"
             holder.hourLabel.setTextColor(Color.parseColor("#FFFF0000"))
+
         }
         else{
-            
+
             holder.hourLabel.text = "O"
             holder.hourLabel.setTextColor(Color.parseColor("#FF00FF00"))
             holder.hourLabel.setOnClickListener{
