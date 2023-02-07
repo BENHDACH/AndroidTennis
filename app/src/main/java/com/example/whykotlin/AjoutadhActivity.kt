@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.whykotlin.databinding.ActivityAccueilBinding
 import com.example.whykotlin.databinding.ActivityAjoutadhBinding
+import com.google.android.gms.common.internal.Objects.ToStringHelper
 
 class AjoutadhActivity : AppCompatActivity() {
 
@@ -34,29 +35,42 @@ class AjoutadhActivity : AppCompatActivity() {
     fun writeNewUser(userId: String, userPsw: String, userRk: String) {
         val user = User(userPsw, userRk)
 
-        Data.database.child("users").child(userId).setValue(user)
+        Data.database.reference.child("users").child(userId).setValue(user)
     }
 
 
     private fun buttonsListener() {
 
-            binding.newname.setOnClickListener {
-                Log.d("textnewname", "Click sur newname")
-
-            }
-
-        /*if ( == null){
-            //ne pas enregistrer et afficher un message
-            Toast.makeText(this, "Données non valide", Toast.LENGTH_LONG).show()
+        /*binding.newname2.setOnClickListener {
+            Log.d("textnewname", "Click sur newname")
         }*/
 
         //if enregistrement bon
         binding.enr.setOnClickListener{
-            val intent = Intent(this, AccueilActivity::class.java)
-            startActivity(intent)
+            //else données rentrer invalide
+
+            //si nom invalide
+            if (binding.newname2.text.toString() == ""){
+                Log.d("textnewname", "VIDE")
+                Toast.makeText(this, "nom de l'adhérant vide", Toast.LENGTH_LONG).show()
+            }
+            //si mot de passe vide
+            if (binding.newpass2.text.toString() == ""){
+                Log.d("textnewname", "PASSWORD VIDE")
+                Toast.makeText(this, "mot de passe adhérant vide", Toast.LENGTH_LONG).show()
+            }
+
+            //si un nom et un mot de passe son entree
+            //else adhérant déjà existant
+            if ((binding.newname2.text.toString()).isNotEmpty()){ //il faut un nombre pair de caractère pour que ca marche
+                Log.d("textnewname", "PLEIN")
+                if ((binding.newpass2.text.toString()).isNotEmpty()){
+                    val intent = Intent(this, AccueilActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
-        //else adhérant déjà existant
-        //else données rentrer invalide
+
     }
 
 }
