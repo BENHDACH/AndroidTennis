@@ -3,12 +3,13 @@ package com.example.whykotlin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.example.whykotlin.databinding.ActivityMainBinding
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.IgnoreExtraProperties
+import com.google.firebase.database.*
 
 @IgnoreExtraProperties
-data class User(val username: String? = null, val email: String? = null) {
+data class User(val userPsw: String? = null, val userRk: String? = null) {
     // Null default values create a no-argument default constructor, which is needed
     // for deserialization from a DataSnapshot.
 }
@@ -17,29 +18,56 @@ data class User(val username: String? = null, val email: String? = null) {
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    //lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
-        Data.database.setValue("hello, world!")
-        writeNewUser("M","MBS","J.hotmail")
+
+        writeNewUser("Mohamed","salutations","0")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         buttonsListener()
+        //getUser()
     }
 
-    fun writeNewUser(userId: String, name: String, email: String) {
-        val user = User(name, email)
+    /*fun getUser() {
+        Data.database.getReference("users")
+            .orderByChild("userId")
+            .equalTo(binding.caseName.text.toString())
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    Log.d("dataBase", snapshot.toString())
+                    if(snapshot.exists()) {
+                        val user = snapshot.children.first().getValue(User::class.java)
+                        if(user?.userPsw == binding.casePassword.text.toString()) {
+                            Log.d("dataBase","connected")
+                            buttonsListener()
+                            // Connected
+                        }
+                    }
 
-        Data.database.child("users").child(userId).setValue(user)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("dataBase", error.toString())
+                }
+
+            })
+    }*/
+    fun writeNewUser(userId: String, userPsw: String, userRk: String) {
+        val user = User(userPsw, userRk)
+
+        Data.database.reference.child("users").child(userId).setValue(user)
     }
 
     private fun buttonsListener() {
         binding.connexion.setOnClickListener{
             val intent = Intent(this, AccueilActivity::class.java)
+            Toast.makeText(this, "Bienvenue !", Toast.LENGTH_LONG).show()
             startActivity(intent)
         }
     }
