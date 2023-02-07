@@ -11,11 +11,9 @@ class ClendrierActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityClendrierBinding
-
     companion object{
         val extraKeyr = "extraKeyr"
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityClendrierBinding.inflate(layoutInflater)
