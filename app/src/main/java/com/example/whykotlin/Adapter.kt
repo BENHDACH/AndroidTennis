@@ -69,6 +69,7 @@ class Adapter(val clickListener: (Int, Int) -> Unit) :RecyclerView.Adapter<Adapt
             holder.hourLabel.setTextColor(Color.parseColor("#FFFF0000"))
         }
         else{
+            
             holder.hourLabel.text = "O"
             holder.hourLabel.setTextColor(Color.parseColor("#FF00FF00"))
             holder.hourLabel.setOnClickListener{
