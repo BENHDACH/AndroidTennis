@@ -12,7 +12,7 @@ import com.example.whykotlin.databinding.ActivityAccueilBinding
 enum class Category {RESERVATIONT1, RESERVATIONT2, RESERVATIONS, TCHAT, AJOUTADH}
 class AccueilActivity : AppCompatActivity() {
 
-    var test = 0
+    var test = 0 //pour tester la fonctionalité du boutoon invisble et pas possible de cliquer si on est pas admin
     lateinit var binding: ActivityAccueilBinding
     lateinit var currentCategory: Category
 
