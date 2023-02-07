@@ -12,6 +12,9 @@
         android:theme="@style/Theme.WhyKotlin"
         tools:targetApi="31">
         <activity
+            android:name=".AjoutadhActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReservationActivity"
             android:exported="false" />
         <activity
