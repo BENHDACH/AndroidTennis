@@ -8,12 +8,10 @@ import android.widget.Toast
 import com.example.whykotlin.databinding.ActivityAccueilBinding
 
 
-enum class Category {RESERVATIONT1, RESERVATIONT2, RESERVATIONS, TCHAT}
+enum class Category {RESERVATIONT1, RESERVATIONT2, RESERVATIONS, TCHAT, AJOUTADH}
 class AccueilActivity : AppCompatActivity() {
 
-    /*companion object{
-        val extraKey = "extraKey"
-    }*/
+
     lateinit var binding: ActivityAccueilBinding
     lateinit var currentCategory: Category
 
@@ -42,6 +40,7 @@ class AccueilActivity : AppCompatActivity() {
             Category.RESERVATIONT2 -> getString(R.string.resT2)
             Category.RESERVATIONS -> getString(R.string.res)
             Category.TCHAT -> getString(R.string.chat)
+            Category.AJOUTADH -> getString(R.string.ajoutadh)
         }
 
     }
@@ -87,6 +86,16 @@ class AccueilActivity : AppCompatActivity() {
             val intent = Intent(this, ChatActivity::class.java)
             intent.putExtra(ChatActivity.extraKey, Category.TCHAT)
             startActivity(intent)
+        }
+
+        //if flag admin on ecoute
+        binding.ajoutadh.setOnClickListener {
+            Toast.makeText(this, "ajouter un adhérant", Toast.LENGTH_LONG ).show()
+            /*val intent = Intent(this, XXXXXXXXXActivity::class.java)
+            intent.putExtra(XXXXXXActivity.extraKey, Category.AJOUTADH)
+            startActivity(intent)*/
+        //else on cache le bouton
+            binding.ajoutadh.visibility
         }
     }
 
