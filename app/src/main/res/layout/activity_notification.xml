@@ -28,31 +28,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="377dp"
-        android:layout_height="414dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26999998">
-
-        <DatePicker
-            android:layout_width="250dp"
-            android:layout_height="150dp"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="1"
-            android:datePickerMode="calendar" />
-    </LinearLayout>
-
-    <DatePicker
+    <TimePicker
+        android:id="@+id/TimePicker"
         android:layout_width="250dp"
         android:layout_height="150dp"
+        android:layout_marginBottom="88dp"
         android:layout_weight="1"
-        android:datePickerMode="spinner"
-        tools:layout_editor_absoluteX="86dp"
-        tools:layout_editor_absoluteY="544dp" />
+        android:timePickerMode="spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="TEST"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
