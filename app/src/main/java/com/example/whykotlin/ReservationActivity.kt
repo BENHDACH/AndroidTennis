@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.whykotlin.databinding.ActivityReservationAvtivityBinding
+import java.util.Calendar
+import java.util.Locale
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -16,9 +18,11 @@ class ReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_avtivity)
 
+        binding = ActivityReservationAvtivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.title = "Réservation"
-       // ShowAdh()
+        ShowAdh()
     }
 
     override fun onStart() {
@@ -43,7 +47,27 @@ class ReservationActivity : AppCompatActivity() {
     private fun ShowAdh() {
        // binding.idReserv.text = "ThierryH"
       //  binding.nomDate.text = getString(R.string.nomDate)
-     //   binding.nomTime.text = getString(R.string.nomTime)
+
+        binding.textTime.text = intent.getStringExtra("Heure")+"h"
+        val date = intent.getStringExtra("Jour")
+       // val intdate : Int? = date.toInt()
+
+        if(date=="1") {
+            val calendrier = Calendar.getInstance()
+            val day = calendrier.get(Calendar.DAY_OF_MONTH)
+            val month = calendrier.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault() )
+            binding.textDate.text = "${day} ${month}"
+        }
+        else{
+            val calendrier = Calendar.getInstance()
+            calendrier.add(Calendar.DATE, (date?.toInt() ?:1)-1)
+            val day = calendrier.get(Calendar.DAY_OF_MONTH)
+            val month = calendrier.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault() )
+            binding.textDate.text = "${day} ${month}"
+        }
+
+
+
 
 
 
