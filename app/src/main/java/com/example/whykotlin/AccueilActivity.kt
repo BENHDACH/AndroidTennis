@@ -73,9 +73,9 @@ class AccueilActivity : AppCompatActivity() {
         ////On vas dans nos réservations
         binding.dejares.setOnClickListener {
             Toast.makeText(this, "resS", Toast.LENGTH_LONG ).show()
-            /*val intent = Intent(this, XXXXXXXXXActivity::class.java)
-            intent.putExtra(XXXXXXActivity.extraKey, Category.RESERVATIONS)
-            startActivity(intent)*/
+            val intent = Intent(this, ReservationActivity::class.java)
+            intent.putExtra(ReservationActivity.extraKeys, Category.RESERVATIONS)
+            startActivity(intent)
 
         }
 
@@ -95,7 +95,7 @@ class AccueilActivity : AppCompatActivity() {
             intent.putExtra(XXXXXXActivity.extraKey, Category.AJOUTADH)
             startActivity(intent)*/
         //else on cache le bouton
-            binding.ajoutadh.visibility
+            //binding.ajoutadh.setVisibility();
         }
     }
 
