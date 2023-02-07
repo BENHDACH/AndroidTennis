@@ -29,6 +29,8 @@ class AjoutadhActivity : AppCompatActivity() {
         //modifier pour avoir les données rentrer au clavier
 
         writeNewUser("M","MBS","J.hotmail")
+
+        supportActionBar?.title = "Ajouter un adhérent"
     }
 
 
@@ -45,6 +47,10 @@ class AjoutadhActivity : AppCompatActivity() {
             Log.d("textnewname", "Click sur newname")
         }*/
 
+        binding.retourhome.setOnClickListener {
+            val intent = Intent(this, AccueilActivity::class.java)
+            startActivity(intent)
+        }
         //if enregistrement bon
         binding.enr.setOnClickListener{
             //else données rentrer invalide
