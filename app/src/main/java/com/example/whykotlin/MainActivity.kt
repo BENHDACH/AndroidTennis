@@ -25,27 +25,28 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        writeNewUser("Mohamed","salutations","0")
+        writeNewUser("Aliciane","alili","hello")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        buttonsListener()
         //getUser()
+        buttonsListener()
     }
 
-    /*fun getUser() {
+    fun getUser() {
+
         Data.database.getReference("users")
-            .orderByChild("userId")
+            .orderByChild("userPsw")
             .equalTo(binding.caseName.text.toString())
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.d("dataBase", snapshot.toString())
                     if(snapshot.exists()) {
+                        Log.d("d", "PEOEOEO")
                         val user = snapshot.children.first().getValue(User::class.java)
-                        if(user?.userPsw == binding.casePassword.text.toString()) {
+                        if(user?.userRk == binding.casePassword.text.toString()) {
                             Log.d("dataBase","connected")
-                            buttonsListener()
                             // Connected
                         }
                     }
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             })
-    }*/
+    }
     fun writeNewUser(userId: String, userPsw: String, userRk: String) {
         val user = User(userPsw, userRk)
 
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun buttonsListener() {
         binding.connexion.setOnClickListener{
+            getUser()
             val intent = Intent(this, AccueilActivity::class.java)
             Toast.makeText(this, "Bienvenue !", Toast.LENGTH_LONG).show()
             startActivity(intent)
