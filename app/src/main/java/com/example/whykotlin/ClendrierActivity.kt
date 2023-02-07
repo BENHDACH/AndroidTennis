@@ -2,6 +2,8 @@ package com.example.whykotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.whykotlin.databinding.ActivityClendrierBinding
 import com.example.whykotlin.databinding.ActivityMainBinding
 
@@ -16,9 +18,12 @@ class ClendrierActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_clendrier)
-
         binding = ActivityClendrierBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 8)
+        binding.recyclerView.adapter = Adapter()
+
     }
 }
