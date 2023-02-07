@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.example.whykotlin.databinding.ActivityAccueilBinding
 
@@ -11,7 +12,7 @@ import com.example.whykotlin.databinding.ActivityAccueilBinding
 enum class Category {RESERVATIONT1, RESERVATIONT2, RESERVATIONS, TCHAT, AJOUTADH}
 class AccueilActivity : AppCompatActivity() {
 
-
+    var test = 0
     lateinit var binding: ActivityAccueilBinding
     lateinit var currentCategory: Category
 
@@ -34,8 +35,8 @@ class AccueilActivity : AppCompatActivity() {
         Log.d("LifeCycle", "AccueilActivity on Create")
     }
 
-    private fun categoryName(): String{
-        return when (currentCategory){
+    private fun categoryName(): String {
+        return when (currentCategory) {
             Category.RESERVATIONT1 -> getString(R.string.resT1)
             Category.RESERVATIONT2 -> getString(R.string.resT2)
             Category.RESERVATIONS -> getString(R.string.res)
@@ -44,17 +45,18 @@ class AccueilActivity : AppCompatActivity() {
         }
 
     }
+
     override fun onDestroy() {
-        Log.d( "onDestroy", "AccueilActivity destroy")
+        Log.d("onDestroy", "AccueilActivity destroy")
         super.onDestroy()
     }
 
-    private fun buttonsListener(){
+    private fun buttonsListener() {
 
         // On vas dans la resa du terrain1
         binding.resT1.setOnClickListener {
-            Log.d( "button", "Click sur button reservation1")
-            Toast.makeText(this, "res1", Toast.LENGTH_LONG ).show()
+            Log.d("button", "Click sur button reservation1")
+            Toast.makeText(this, "res1", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra(ClendrierActivity.extraKeyr, Category.RESERVATIONT1)
@@ -63,7 +65,7 @@ class AccueilActivity : AppCompatActivity() {
         }
         // On vas dans la resa terrain2
         binding.resT2.setOnClickListener {
-            Toast.makeText(this, "res2", Toast.LENGTH_LONG ).show()
+            Toast.makeText(this, "res2", Toast.LENGTH_LONG).show()
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra(ClendrierActivity.extraKeyr, Category.RESERVATIONT2)
             startActivity(intent)
@@ -72,7 +74,7 @@ class AccueilActivity : AppCompatActivity() {
 
         ////On vas dans nos réservations
         binding.dejares.setOnClickListener {
-            Toast.makeText(this, "resS", Toast.LENGTH_LONG ).show()
+            Toast.makeText(this, "resS", Toast.LENGTH_LONG).show()
             val intent = Intent(this, ReservationActivity::class.java)
             intent.putExtra(ReservationActivity.extraKeys, Category.RESERVATIONS)
             startActivity(intent)
@@ -81,22 +83,25 @@ class AccueilActivity : AppCompatActivity() {
 
         //On vas dans le tchat
         binding.chat.setOnClickListener {
-            Toast.makeText(this, "chat", Toast.LENGTH_LONG ).show()
+            Toast.makeText(this, "chat", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, ChatActivity::class.java)
             intent.putExtra(ChatActivity.extraKey, Category.TCHAT)
             startActivity(intent)
         }
 
-        //if flag admin on ecoute
-        binding.ajoutadh.setOnClickListener {
-            Toast.makeText(this, "ajouter un adhérant", Toast.LENGTH_LONG ).show()
-            /*val intent = Intent(this, XXXXXXXXXActivity::class.java)
-            intent.putExtra(XXXXXXActivity.extraKey, Category.AJOUTADH)
-            startActivity(intent)*/
-        //else on cache le bouton
-            //binding.ajoutadh.setVisibility();
+        //remplacer le test par le flag / rang du admin
+        if (test == 1) {
+            binding.ajoutadh.setOnClickListener {
+                Toast.makeText(this, "ajouter un adhérant", Toast.LENGTH_LONG).show()
+                /*val intent = Intent(this, XXXXXXXXXActivity::class.java)
+                intent.putExtra(XXXXXXActivity.extraKey, Category.AJOUTADH)
+                startActivity(intent)*/
+            }
+        } else {
+            binding.ajoutadh.visibility = View.GONE
         }
+
     }
 
 }
