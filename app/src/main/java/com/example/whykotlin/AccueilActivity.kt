@@ -91,12 +91,12 @@ class AccueilActivity : AppCompatActivity() {
         }
 
         //remplacer le test par le flag / rang du admin
-        if (test == 1) {
+        if (test == 0) {
             binding.ajoutadh.setOnClickListener {
                 Toast.makeText(this, "ajouter un adhérant", Toast.LENGTH_LONG).show()
-                /*val intent = Intent(this, XXXXXXXXXActivity::class.java)
-                intent.putExtra(XXXXXXActivity.extraKey, Category.AJOUTADH)
-                startActivity(intent)*/
+                val intent = Intent(this, AjoutadhActivity::class.java)
+                intent.putExtra(AjoutadhActivity.extraKeya, Category.AJOUTADH)
+                startActivity(intent)
             }
         } else {
             binding.ajoutadh.visibility = View.GONE
