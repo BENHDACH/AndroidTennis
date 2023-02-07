@@ -18,7 +18,7 @@ class ReservationActivity : AppCompatActivity() {
 
 
         supportActionBar?.title = "Réservation"
-      //  ShowAdh()
+       // ShowAdh()
     }
 
     override fun onStart() {
@@ -42,6 +42,9 @@ class ReservationActivity : AppCompatActivity() {
     }
     private fun ShowAdh() {
        // binding.idReserv.text = "ThierryH"
+      //  binding.nomDate.text = getString(R.string.nomDate)
+     //   binding.nomTime.text = getString(R.string.nomTime)
+
 
 
     }

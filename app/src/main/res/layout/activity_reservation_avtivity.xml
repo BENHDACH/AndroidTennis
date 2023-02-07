@@ -12,8 +12,8 @@
         android:id="@+id/textDate"
         android:layout_width="220dp"
         android:layout_height="66dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,8 +44,8 @@
         android:id="@+id/listAd"
         android:layout_width="162dp"
         android:layout_height="203dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idReserv" />
 
@@ -53,12 +53,13 @@
         android:id="@+id/enregistre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/enregistre"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker" />
 
     <Button
         android:id="@+id/button3"
@@ -72,4 +73,40 @@
         app:layout_constraintHorizontal_bias="0.401"
         app:layout_constraintStart_toEndOf="@+id/idReserv" />
 
+    <TextView
+        android:id="@+id/nomDate"
+        android:layout_width="48dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/nomDate"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nomTime"
+        app:layout_constraintEnd_toStartOf="@+id/textDate"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textDate"
+        app:layout_constraintVertical_bias="0.088" />
+
+    <TextView
+        android:id="@+id/nomTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/nomTime"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textTime"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textTime" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="241dp"
+        android:layout_height="135dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listAd" />
 </androidx.constraintlayout.widget.ConstraintLayout>
