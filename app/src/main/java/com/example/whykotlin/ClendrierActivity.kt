@@ -1,11 +1,10 @@
 package com.example.whykotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.whykotlin.databinding.ActivityClendrierBinding
-import com.example.whykotlin.databinding.ActivityMainBinding
 
 class ClendrierActivity : AppCompatActivity() {
 
@@ -21,7 +20,10 @@ class ClendrierActivity : AppCompatActivity() {
 
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 8)
-        binding.recyclerView.adapter = Adapter()
+        binding.recyclerView.adapter = Adapter() { weekday, hour ->
+            val intent = Intent(this, ReservationActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }
