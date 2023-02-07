@@ -45,7 +45,6 @@ class AccueilActivity : AppCompatActivity() {
         }
 
     }
-
     override fun onDestroy() {
         Log.d( "onDestroy", "AccueilActivity destroy")
         super.onDestroy()
@@ -53,33 +52,42 @@ class AccueilActivity : AppCompatActivity() {
 
     private fun buttonsListener(){
 
+        // On vas dans la resa du terrain1
         binding.resT1.setOnClickListener {
             Log.d( "button", "Click sur button reservation1")
             Toast.makeText(this, "res1", Toast.LENGTH_LONG ).show()
-            showCategory(Category.RESERVATIONT1)
+
+            val intent = Intent(this, ClendrierActivity::class.java)
+            intent.putExtra(ClendrierActivity.extraKeyr, Category.RESERVATIONT1)
+            startActivity(intent)
+
         }
+        // On vas dans la resa terrain2
         binding.resT2.setOnClickListener {
             Toast.makeText(this, "res2", Toast.LENGTH_LONG ).show()
-            showCategory(Category.RESERVATIONT2)
+            val intent = Intent(this, ClendrierActivity::class.java)
+            intent.putExtra(ClendrierActivity.extraKeyr, Category.RESERVATIONT2)
+            startActivity(intent)
+
         }
+
+        ////On vas dans nos réservations
         binding.dejares.setOnClickListener {
             Toast.makeText(this, "resS", Toast.LENGTH_LONG ).show()
-            showCategory(Category.RESERVATIONS)
+            /*val intent = Intent(this, XXXXXXXXXActivity::class.java)
+            intent.putExtra(XXXXXXActivity.extraKey, Category.RESERVATIONS)
+            startActivity(intent)*/
+
         }
 
+        //On vas dans le tchat
         binding.chat.setOnClickListener {
-            //Log.d( "button", "Click sur button finish")
             Toast.makeText(this, "chat", Toast.LENGTH_LONG ).show()
-            //val intent = Intent( this, MenuActivity::class.java)
-            //startActivity(intent)
-            showCategory(Category.TCHAT)
+
+            val intent = Intent(this, ChatActivity::class.java)
+            intent.putExtra(ChatActivity.extraKey, Category.TCHAT)
+            startActivity(intent)
         }
     }
-    private fun showCategory(category: Category){
-        val intent = Intent(this, ChatActivity::class.java)
-        intent.putExtra(ChatActivity.extraKey, category)
-        startActivity(intent)
-    }
-
 
 }
