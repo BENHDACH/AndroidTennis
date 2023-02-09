@@ -99,7 +99,7 @@ class AccueilActivity : AppCompatActivity() {
                 intent.putExtra(AjoutadhActivity.extraKeya, Category.AJOUTADH)
                 startActivity(intent)
             }
-        }
+        } 
         else {
             binding.ajoutadh.visibility = View.GONE
         }
