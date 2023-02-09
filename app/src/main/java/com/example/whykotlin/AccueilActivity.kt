@@ -91,6 +91,7 @@ class AccueilActivity : AppCompatActivity() {
         }
 
         //remplacer le test par le flag / rang du admin
+        //quand admin rank 0
         if (test == 0) {
             binding.ajoutadh.setOnClickListener {
                 //Toast.makeText(this, "ajouter un adhérant", Toast.LENGTH_LONG).show()
