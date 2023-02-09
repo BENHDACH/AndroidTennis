@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.view.get
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.whykotlin.databinding.ActivityClendrierBinding
 
