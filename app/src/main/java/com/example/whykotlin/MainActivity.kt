@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         val user = User(userName, userPsw, userRk)
 
         Data.database.reference.child("users").child(userId).setValue(user)
-    }
+    } 
 
 
     private fun buttonsListener() {
