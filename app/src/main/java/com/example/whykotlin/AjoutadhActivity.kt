@@ -71,7 +71,7 @@ class AjoutadhActivity : AppCompatActivity() {
             //else adhérant déjà existant => effacer le bouton ajouter et propose un bouton suprimer
              /*if (nom utilisateur existe déja && mot de passe deja existant){
                 Toast.makeText(this, "adhérant déjà existant vous pouvez le supprimer", Toast.LENGTH_LONG).show()
-                
+
                 binding.ajoutadh.visibility = View.GONE //efface le bouton enregistrer
                 binding.supradh.visibility = View.VISIBLE //on affiche le bouton supprimer
 
