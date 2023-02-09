@@ -71,9 +71,9 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun ShowAdh() {
-        val user = Data.database.getReference("users")
+        val user = Data.database.getReference("userName")
         binding.idReserv.text = "${user}"
-
+        
     }
 
     private fun buttonListener() {
