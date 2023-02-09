@@ -72,14 +72,14 @@ class AccueilActivity : AppCompatActivity() {
 
         }
 
-        ////On vas dans nos réservations
+        /*//On vas dans nos réservations
         binding.dejares.setOnClickListener {
             Toast.makeText(this, "resS", Toast.LENGTH_LONG).show()
             val intent = Intent(this, ReservationActivity::class.java)
             intent.putExtra(ReservationActivity.extraKeys, Category.RESERVATIONS)
             startActivity(intent)
 
-        }
+        }*/
 
         //On vas dans le tchat
         binding.chat.setOnClickListener {
@@ -91,17 +91,17 @@ class AccueilActivity : AppCompatActivity() {
         }
 
         //remplacer le test par le flag / rang du admin
+        //quand admin rank 0
         if (test == 0) {
             binding.ajoutadh.setOnClickListener {
-                Toast.makeText(this, "ajouter un adhérant", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "ajouter un adhérant", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, AjoutadhActivity::class.java)
                 intent.putExtra(AjoutadhActivity.extraKeya, Category.AJOUTADH)
                 startActivity(intent)
             }
-        } else {
+        } 
+        else {
             binding.ajoutadh.visibility = View.GONE
         }
-
     }
-
 }

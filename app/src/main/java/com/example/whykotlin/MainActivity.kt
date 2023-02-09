@@ -9,15 +9,19 @@ import com.example.whykotlin.databinding.ActivityMainBinding
 import com.google.firebase.database.*
 
 @IgnoreExtraProperties
-data class User(val userPsw: String? = null, val userRk: String? = null) {
+data class User(val userName: String? = null, val userPsw: String? = null, val userRk: String? = null) {
     // Null default values create a no-argument default constructor, which is needed
     // for deserialization from a DataSnapshot.
 }
 
 
 
+
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+
     //lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        writeNewUser("Aliciane","alili","hello")
+        writeNewUser("user2","admin","ad", "0")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,10 +38,10 @@ class MainActivity : AppCompatActivity() {
         buttonsListener()
     }
 
-    fun getUser() {
+    fun getUser(){
 
         Data.database.getReference("users")
-            .orderByChild("userPsw")
+            .orderByChild("userName")
             .equalTo(binding.caseName.text.toString())
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -45,33 +49,53 @@ class MainActivity : AppCompatActivity() {
                     if(snapshot.exists()) {
                         Log.d("d", "PEOEOEO")
                         val user = snapshot.children.first().getValue(User::class.java)
-                        if(user?.userRk == binding.casePassword.text.toString()) {
+                        if(user?.userPsw == binding.casePassword.text.toString()) {
                             Log.d("dataBase","connected")
-                            // Connected
+                             // Connected
+                            tuMeSoul();
                         }
+                        else {
+                            falseCo();
+                        }
+
+
+                    }
+                    if(!snapshot.exists()) {
+                            falseCo();
                     }
 
                 }
+
 
                 override fun onCancelled(error: DatabaseError) {
                     Log.e("dataBase", error.toString())
                 }
 
+
             })
+
     }
-    fun writeNewUser(userId: String, userPsw: String, userRk: String) {
-        val user = User(userPsw, userRk)
+    fun writeNewUser(userId: String, userName: String, userPsw: String, userRk: String) {
+        val user = User(userName, userPsw, userRk)
 
         Data.database.reference.child("users").child(userId).setValue(user)
-    }
+    } 
+
 
     private fun buttonsListener() {
         binding.connexion.setOnClickListener{
             getUser()
-            val intent = Intent(this, AccueilActivity::class.java)
-            Toast.makeText(this, "Bienvenue !", Toast.LENGTH_LONG).show()
-            startActivity(intent)
         }
+    }
+
+    private fun tuMeSoul(){
+        val intent = Intent(this, AccueilActivity::class.java)
+        Toast.makeText(this, "Bienvenue !", Toast.LENGTH_LONG).show()
+        startActivity(intent)
+    }
+
+    private fun falseCo(){
+        Toast.makeText(this, "Veuillez entrer un identifiant et un mot de passe valides", Toast.LENGTH_LONG).show()
     }
 
 
