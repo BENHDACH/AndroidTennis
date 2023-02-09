@@ -72,14 +72,14 @@ class AccueilActivity : AppCompatActivity() {
 
         }
 
-        ////On vas dans nos réservations
+        /*//On vas dans nos réservations
         binding.dejares.setOnClickListener {
             Toast.makeText(this, "resS", Toast.LENGTH_LONG).show()
             val intent = Intent(this, ReservationActivity::class.java)
             intent.putExtra(ReservationActivity.extraKeys, Category.RESERVATIONS)
             startActivity(intent)
 
-        }
+        }*/
 
         //On vas dans le tchat
         binding.chat.setOnClickListener {
