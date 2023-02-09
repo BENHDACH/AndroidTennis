@@ -16,8 +16,11 @@ data class User(val userName: String? = null, val userPsw: String? = null, val u
 
 
 
+
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
 
     //lateinit var database: DatabaseReference
 
@@ -76,7 +79,8 @@ class MainActivity : AppCompatActivity() {
         val user = User(userName, userPsw, userRk)
 
         Data.database.reference.child("users").child(userId).setValue(user)
-    }
+    } 
+
 
     private fun buttonsListener() {
         binding.connexion.setOnClickListener{
