@@ -46,6 +46,7 @@ class AjoutadhActivity : AppCompatActivity() {
         /*binding.newname2.setOnClickListener {
             Log.d("textnewname", "Click sur newname")
         }*/
+        binding.supradh.visibility = View.GONE //on n'affiche pas le bouton supprimer
 
         binding.retourhome.setOnClickListener {
             val intent = Intent(this, AccueilActivity::class.java)
@@ -67,7 +68,21 @@ class AjoutadhActivity : AppCompatActivity() {
             }
 
             //si un nom et un mot de passe son entree
-            //else adhérant déjà existant
+            //else adhérant déjà existant => effacer le bouton ajouter et propose un bouton suprimer
+             /*if (nom utilisateur existe déja && mot de passe deja existant){
+                Toast.makeText(this, "adhérant déjà existant vous pouvez le supprimer", Toast.LENGTH_LONG).show()
+                
+                binding.ajoutadh.visibility = View.GONE //efface le bouton enregistrer
+                binding.supradh.visibility = View.VISIBLE //on affiche le bouton supprimer
+
+                 binding.supradh.setOnClickListener { //on rend le bouton supprimer clicable
+                     val intent = Intent(this, AccueilActivity::class.java)
+                     startActivity(intent)
+                 }
+
+
+            }*/
+
             if ((binding.newname2.text.toString()).isNotEmpty()){ //il faut un nombre pair de caractère pour que ca marche
                 Log.d("textnewname", "PLEIN")
                 if ((binding.newpass2.text.toString()).isNotEmpty()){
