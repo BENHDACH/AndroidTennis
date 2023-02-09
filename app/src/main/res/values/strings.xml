@@ -9,5 +9,6 @@
     <string name="enregistre">Enregistrer</string>
     <string name="nomDate">Date</string>
     <string name="nomTime">Heure</string>
+    <string name="nomNotif">Choisir une heure pour le rappel:</string>
 </resources>
 

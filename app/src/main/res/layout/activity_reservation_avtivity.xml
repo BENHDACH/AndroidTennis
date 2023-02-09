@@ -9,6 +9,18 @@
     tools:context=".ReservationActivity">
 
     <TextView
+        android:id="@+id/nomNotif"
+        android:layout_width="339dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/nomNotif"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listAd" />
+
+    <TextView
         android:id="@+id/idReserv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,8 +32,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listAd"
-        android:layout_width="162dp"
-        android:layout_height="203dp"
+        android:layout_width="160dp"
+        android:layout_height="137dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,12 +84,12 @@
         android:layout_width="74dp"
         android:layout_height="49dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="156dp"
         android:text="@string/nomTime"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textTime"
-        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,24 +97,25 @@
         android:id="@+id/timePicker"
         android:layout_width="241dp"
         android:layout_height="135dp"
+        android:layout_marginTop="12dp"
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.341"
+        app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listAd" />
+        app:layout_constraintTop_toBottomOf="@+id/nomNotif" />
 
     <TextView
         android:id="@+id/textTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="116dp"
+        android:layout_marginEnd="140dp"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/idReserv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/nomTime"
-        app:layout_constraintVertical_bias="0.038" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textDate"
@@ -114,8 +127,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textTime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toEndOf="@+id/nomDate"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintVertical_bias="0.139" />
 </androidx.constraintlayout.widget.ConstraintLayout>
