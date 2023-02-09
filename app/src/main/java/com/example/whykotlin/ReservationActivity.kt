@@ -1,8 +1,10 @@
 package com.example.whykotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.whykotlin.databinding.ActivityReservationAvtivityBinding
 import java.util.Calendar
 import java.util.Locale
@@ -22,7 +24,9 @@ class ReservationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.title = "Réservation"
+        ShowDate()
         ShowAdh()
+        buttonListener()
     }
 
     override fun onStart() {
@@ -44,32 +48,47 @@ class ReservationActivity : AppCompatActivity() {
         super.onDestroy()
         Log.d("LifeCycle", "MenuActivity onStart")
     }
-    private fun ShowAdh() {
+    private fun ShowDate() {
        // binding.idReserv.text = "ThierryH"
       //  binding.nomDate.text = getString(R.string.nomDate)
 
         binding.textTime.text = intent.getStringExtra("Heure")+"h"
         val date = intent.getStringExtra("Jour")
        // val intdate : Int? = date.toInt()
+        val calendrier = Calendar.getInstance()
 
         if(date=="1") {
-            val calendrier = Calendar.getInstance()
             val day = calendrier.get(Calendar.DAY_OF_MONTH)
             val month = calendrier.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault() )
             binding.textDate.text = "${day} ${month}"
         }
         else{
-            val calendrier = Calendar.getInstance()
             calendrier.add(Calendar.DATE, (date?.toInt() ?:1)-1)
             val day = calendrier.get(Calendar.DAY_OF_MONTH)
             val month = calendrier.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault() )
             binding.textDate.text = "${day} ${month}"
         }
+    }
 
-
-
-
-
+    private fun ShowAdh() {
+        val user = Data.database.getReference("users")
+        binding.idReserv.text = "${user}"
 
     }
+
+    private fun buttonListener() {
+        binding.enregistre.setOnClickListener {
+            Toast.makeText(this, "réservé", Toast.LENGTH_LONG).show()
+
+            val intent = Intent(this, AccueilActivity::class.java)
+            startActivity(intent)
+        }
+        binding.backhome.setOnClickListener {
+
+            val intent = Intent(this, AccueilActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
 }
