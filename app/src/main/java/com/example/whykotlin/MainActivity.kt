@@ -52,7 +52,8 @@ class MainActivity : AppCompatActivity() {
                         if(user?.userPsw == binding.casePassword.text.toString()) {
                             Log.d("dataBase","connected")
                              // Connected
-                            tuMeSoul();
+                            Log.e("bla", "${user?.userName} ${user?.userPsw}")
+                            accessHome(user?.userName,user?.userPsw );
                         }
                         else {
                             falseCo();
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         val user = User(userName, userPsw, userRk)
 
         Data.database.reference.child("users").child(userId).setValue(user)
-    } 
+    }
 
 
     private fun buttonsListener() {
@@ -88,9 +89,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun tuMeSoul(){
+    private fun accessHome(userName: String?, userRk: String?){
         val intent = Intent(this, AccueilActivity::class.java)
         Toast.makeText(this, "Bienvenue !", Toast.LENGTH_LONG).show()
+        intent.putExtra("rangUser", "${userRk}")
+        intent.putExtra("nameUser", "${userName}")
         startActivity(intent)
     }
 
