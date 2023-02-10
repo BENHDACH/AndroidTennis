@@ -17,20 +17,41 @@ class ClendrierActivity : AppCompatActivity() {
         val extraKeyr = "extraKeyr"
     }
 
+    private var fleche: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityClendrierBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.recyclerView.layoutManager = GridLayoutManager(this, 8)
 
-        binding.recyclerView.adapter = Adapter() { weekday, hour ->
+        binding.recyclerView.adapter = Adapter ({ weekday, hour ->
             val intent = Intent(this, ReservationActivity::class.java)
             intent.putExtra("Heure","${hour+6}")
             intent.putExtra("Jour","${weekday}")
             startActivity(intent)
+        },fleche)
+
+        binding.buttonFleche.setOnClickListener{
+            fleche = !fleche
+            if(fleche){
+                binding.buttonFleche.text = "-"
+            }
+            else{
+                binding.buttonFleche.text = "+"
+            }
+
+
+            binding.recyclerView.adapter = Adapter ({ weekday, hour ->
+                val intent = Intent(this, ReservationActivity::class.java)
+                intent.putExtra("Heure","${hour+6}")
+                intent.putExtra("Jour","${weekday}")
+                startActivity(intent)
+            },fleche)
         }
+
+
 
     }
 }

@@ -12,7 +12,7 @@ import com.example.whykotlin.databinding.CellHourBinding
 import java.util.Calendar
 import java.util.Locale
 
-class Adapter(val clickListener: (Int, Int) -> Unit) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
+class Adapter(val clickListener: (Int, Int) -> Unit, val flecheClick: Boolean) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
     class CellViewHolder(binding: CellHourBinding): RecyclerView.ViewHolder(binding.root) {
         val hourLabel = binding.hourLabel
     }
@@ -25,20 +25,26 @@ class Adapter(val clickListener: (Int, Int) -> Unit) :RecyclerView.Adapter<Adapt
         return (22-7 +1)*8
     }
 
+
     override fun onBindViewHolder(holder: CellViewHolder, position: Int) {
         //val plate = items[position]
         //Log.e("CroisMoii","Les position ${position}")
+       // Log.e("FLeche ?","${flecheClick}")
         val hour = position / 8 //Chaque ligne de 8 element on revient à la ligne donc chaque ligne est une heure
         val weekDay = position % 8 //Chaque colonne
         //--------
         var currentTNext : Array<String> = arrayOf("","","","","","","","")
         var calendar = Calendar.getInstance()
+        if(flecheClick){
+            calendar.add(Calendar.DATE,7)
+        }
+
         val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
         var samedi : Int = 0 //On est samedi par defaut et on verifiera le reste
         val month = calendar.get(Calendar.MONTH )+1
        // val year = calendar.get(Calendar.YEAR) //Fonctionne pour l'id
-        Log.e("LEL","Just give it ${month}")
-        val currentT = "$dayOfMonth $month "
+        //Log.e("LEL","Just give it ${month}")
+        val currentT = "$dayOfMonth/$month "
         for(i in 1..7){
 
             calendar.add(Calendar.DATE,1)
@@ -50,7 +56,7 @@ class Adapter(val clickListener: (Int, Int) -> Unit) :RecyclerView.Adapter<Adapt
             }
             var dayOfMonthNext = calendar.get(Calendar.DAY_OF_MONTH)
             var monthNext = calendar.get(Calendar.MONTH) +1
-            currentTNext[i] = "$dayOfMonthNext $monthNext"
+            currentTNext[i] = "$dayOfMonthNext/$monthNext"
 
         }
 
