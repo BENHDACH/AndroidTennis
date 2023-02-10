@@ -71,8 +71,9 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun ShowAdh() {
-        val user = Data.database.getReference("userName")
-        binding.idReserv.text = "${user}"
+        var recupName = intent.getStringExtra("nameUser")
+        //val user = Data.database.getReference("userName")
+        binding.idReserv.text = "${recupName}"
         
     }
 
