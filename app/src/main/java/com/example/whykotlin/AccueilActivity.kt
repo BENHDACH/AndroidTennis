@@ -16,6 +16,9 @@ class AccueilActivity : AppCompatActivity() {
     lateinit var binding: ActivityAccueilBinding
     lateinit var currentCategory: Category
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAccueilBinding.inflate(layoutInflater)
@@ -72,7 +75,7 @@ class AccueilActivity : AppCompatActivity() {
 
         }
 
-        /*//On vas dans nos réservations
+        /*//On vas dans nos réservations en cours
         binding.dejares.setOnClickListener {
             Toast.makeText(this, "resS", Toast.LENGTH_LONG).show()
             val intent = Intent(this, ReservationActivity::class.java)
@@ -92,14 +95,16 @@ class AccueilActivity : AppCompatActivity() {
 
         //remplacer le test par le flag / rang du admin
         //quand admin rank 0
-        if (test == 0) {
+       var recupRk = intent.getStringExtra("rangUser")
+        Log.e("ra", "${recupRk}")
+        if (recupRk == "0") {
             binding.ajoutadh.setOnClickListener {
                 //Toast.makeText(this, "ajouter un adhérant", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, AjoutadhActivity::class.java)
                 intent.putExtra(AjoutadhActivity.extraKeya, Category.AJOUTADH)
                 startActivity(intent)
             }
-        } 
+        }
         else {
             binding.ajoutadh.visibility = View.GONE
         }
