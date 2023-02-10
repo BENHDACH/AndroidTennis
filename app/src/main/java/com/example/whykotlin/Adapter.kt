@@ -12,7 +12,7 @@ import com.example.whykotlin.databinding.CellHourBinding
 import java.util.Calendar
 import java.util.Locale
 
-class Adapter(val clickListener: (Int, Int) -> Unit, val flecheClick: Boolean) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
+class Adapter(val clickListener: (Int, Int) -> Unit, val flecheClick: Boolean, val terrain: String) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
     class CellViewHolder(binding: CellHourBinding): RecyclerView.ViewHolder(binding.root) {
         val hourLabel = binding.hourLabel
     }

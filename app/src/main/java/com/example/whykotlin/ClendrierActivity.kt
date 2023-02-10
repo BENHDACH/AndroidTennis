@@ -26,13 +26,16 @@ class ClendrierActivity : AppCompatActivity() {
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 8)
         var terrain = intent.getStringExtra("Terrain")
-        Log.e("VoiciT","${terrain}")
+        var nameUserCurrent = intent.getStringExtra("recupName")
+        supportActionBar?.title = terrain
+
         binding.recyclerView.adapter = Adapter ({ weekday, hour ->
             val intent = Intent(this, ReservationActivity::class.java)
             intent.putExtra("Heure","${hour+6}")
             intent.putExtra("Jour","${weekday}")
+            intent.putExtra("Nom","${nameUserCurrent}")
             startActivity(intent)
-        },fleche)
+        },fleche,terrain.toString())
 
         binding.buttonFleche.setOnClickListener{
             fleche = !fleche
@@ -48,8 +51,10 @@ class ClendrierActivity : AppCompatActivity() {
                 val intent = Intent(this, ReservationActivity::class.java)
                 intent.putExtra("Heure","${hour+6}")
                 intent.putExtra("Jour","${weekday}")
+                intent.putExtra("Nom","${nameUserCurrent}")
                 startActivity(intent)
-            },fleche)
+            },fleche,terrain.toString())
+
         }
 
 
