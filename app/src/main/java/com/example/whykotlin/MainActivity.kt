@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.whykotlin.databinding.ActivityMainBinding
 import com.google.firebase.database.*
+import kotlin.reflect.typeOf
 
 @IgnoreExtraProperties
 data class User(val userName: String? = null, val userPsw: String? = null, val userRk: String? = null) {
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        writeNewUser("user2","admin","ad", "0")
+        writeNewUser("user3","adh","ad2", "1")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                             Log.d("dataBase","connected")
                              // Connected
                             Log.e("bla", "${user?.userName} ${user?.userPsw}")
-                            accessHome(user?.userName,user?.userPsw );
+                            accessHome(user?.userName,user?.userRk );
                         }
                         else {
                             falseCo();
@@ -88,12 +89,14 @@ class MainActivity : AppCompatActivity() {
             getUser()
         }
     }
-
+//
     private fun accessHome(userName: String?, userRk: String?){
         val intent = Intent(this, AccueilActivity::class.java)
         Toast.makeText(this, "Bienvenue !", Toast.LENGTH_LONG).show()
-        intent.putExtra("rangUser", "${userRk}")
-        intent.putExtra("nameUser", "${userName}")
+        intent.putExtra("rangUser", "${userRk.toString()}")
+        intent.putExtra("nameUser", "${userName.toString()}")
+        Log.e("rkkk", "${userRk.toString()}")
+
         startActivity(intent)
     }
 
