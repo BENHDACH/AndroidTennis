@@ -29,7 +29,6 @@ class AccueilActivity : AppCompatActivity() {
         currentCategory = category ?: Category.RESERVATIONT1
 
         //supportActionBar?.title = categoryName()
-
         buttonsListener()
     }
 
@@ -63,6 +62,8 @@ class AccueilActivity : AppCompatActivity() {
 
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra("Terrain","T1")
+            var recupName = intent.getStringExtra("nameUser")
+            intent.putExtra("nameUserT1", "${recupName}")
             startActivity(intent)
 
         }
@@ -96,6 +97,7 @@ class AccueilActivity : AppCompatActivity() {
         //remplacer le test par le flag / rang du admin
         //quand admin rank 0
        var recupRk = intent.getStringExtra("rangUser")
+
         Log.e("ra", "${recupRk}")
         if (recupRk == "0") {
             binding.ajoutadh.setOnClickListener {
@@ -109,4 +111,6 @@ class AccueilActivity : AppCompatActivity() {
             binding.ajoutadh.visibility = View.GONE
         }
     }
+
+
 }
