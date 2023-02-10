@@ -109,6 +109,7 @@ class AccueilActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+
         else {
             binding.ajoutadh.visibility = View.GONE
         }
