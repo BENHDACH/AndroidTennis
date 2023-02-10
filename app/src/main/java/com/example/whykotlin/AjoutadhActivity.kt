@@ -54,6 +54,7 @@ class AjoutadhActivity : AppCompatActivity() {
         }
         //if enregistrement bon
         binding.enr.setOnClickListener{
+
             //else données rentrer invalide
 
             //si nom invalide
