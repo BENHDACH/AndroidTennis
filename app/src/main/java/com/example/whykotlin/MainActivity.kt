@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "Bienvenue !", Toast.LENGTH_LONG).show()
         intent.putExtra("rangUser", "${userRk.toString()}")
         intent.putExtra("nameUser", "${userName.toString()}")
+        Log.e("tai", "${userName.toString()}")
 
         startActivity(intent)
     }

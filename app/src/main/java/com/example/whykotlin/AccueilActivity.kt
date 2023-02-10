@@ -59,19 +59,21 @@ class AccueilActivity : AppCompatActivity() {
         binding.resT1.setOnClickListener {
             Log.d("button", "Click sur button reservation1")
             Toast.makeText(this, "res1", Toast.LENGTH_LONG).show()
-
+            var recupName = intent.getStringExtra("nameUser")
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra("Terrain","T1")
-            var recupName = intent.getStringExtra("nameUser")
-            intent.putExtra("nameUserT1", "${recupName}")
+            intent.putExtra("nameUserT1", "${recupName.toString()}")
+
             startActivity(intent)
 
         }
         // On vas dans la resa terrain2
         binding.resT2.setOnClickListener {
             Toast.makeText(this, "res2", Toast.LENGTH_LONG).show()
+            var recupName = intent.getStringExtra("nameUser")
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra("Terrain","T2")
+            intent.putExtra("nameUserT1", "${recupName.toString()}")
             startActivity(intent)
 
         }
