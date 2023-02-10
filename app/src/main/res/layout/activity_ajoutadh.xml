@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:hint="saisissez le nom de l'hadérent" />
+            android:hint="saisissez le nom de l'adhérent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:hint="saissisez son mot de passe"
+            android:hint="saisissez son mot de passe"
             android:inputType="textPassword"
             android:password="false" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -92,7 +92,7 @@
         android:id="@+id/supradh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SUPRIMER"
+        android:text="SUPPRIMER"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
