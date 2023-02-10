@@ -25,7 +25,8 @@ class ClendrierActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 8)
-
+        var terrain = intent.getStringExtra("Terrain")
+        Log.e("VoiciT","${terrain}")
         binding.recyclerView.adapter = Adapter ({ weekday, hour ->
             val intent = Intent(this, ReservationActivity::class.java)
             intent.putExtra("Heure","${hour+6}")
