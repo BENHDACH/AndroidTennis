@@ -72,7 +72,7 @@ class AccueilActivity : AppCompatActivity() {
 
         }
 
-        /*//On vas dans nos réservations en cours 
+        /*//On vas dans nos réservations en cours
         binding.dejares.setOnClickListener {
             Toast.makeText(this, "resS", Toast.LENGTH_LONG).show()
             val intent = Intent(this, ReservationActivity::class.java)
