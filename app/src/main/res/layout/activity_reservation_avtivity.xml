@@ -32,19 +32,19 @@
         android:id="@+id/idReserv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
-        android:layout_marginEnd="140dp"
+        android:layout_marginTop="284dp"
         android:text="TextView"
         android:textSize="16sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listAd"
         android:layout_width="160dp"
         android:layout_height="137dp"
-        android:layout_marginTop="36dp"
         android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idReserv" />
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/timePicker" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/plusadh"
         android:layout_width="51dp"
         android:layout_height="57dp"
         android:layout_marginBottom="16dp"
@@ -70,10 +70,8 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/listAd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.671"
-        app:layout_constraintStart_toEndOf="@+id/idReserv"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.95" />
 
     <TextView
         android:id="@+id/nomDate"
@@ -140,4 +138,26 @@
         app:layout_constraintStart_toEndOf="@+id/nomDate"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.134" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ajoutAdh"
+        android:layout_width="342dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/idReserv"
+        app:layout_constraintEnd_toStartOf="@+id/plusadh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ajouterAdh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            android:hint="hint" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,16 +1,11 @@
 package com.example.whykotlin
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.whykotlin.databinding.ActivityClendrierBinding
 import com.example.whykotlin.databinding.CellHourBinding
 import java.util.Calendar
-import java.util.Locale
 
 class Adapter(val clickListener: (Int, Int) -> Unit, val flecheClick: Boolean, val terrain: String) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
     class CellViewHolder(binding: CellHourBinding): RecyclerView.ViewHolder(binding.root) {

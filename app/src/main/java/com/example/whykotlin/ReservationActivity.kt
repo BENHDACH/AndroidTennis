@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.whykotlin.databinding.ActivityReservationAvtivityBinding
+import layout.AdapterReserv
 import java.util.Calendar
 import java.util.Locale
 
@@ -26,6 +29,15 @@ class ReservationActivity : AppCompatActivity() {
         supportActionBar?.title = "Réservation"
         ShowDate()
         ShowAdh()
+        var participant = ""
+        var clickCount = 0
+
+        binding.listAd.layoutManager = LinearLayoutManager(this)
+        binding.plusadh.setOnClickListener {
+            participant = binding.ajouterAdh.text.toString()
+            clickCount++
+            binding.listAd.adapter = AdapterReserv(participant,clickCount)
+        }
         buttonListener()
     }
 
@@ -90,6 +102,9 @@ class ReservationActivity : AppCompatActivity() {
             val intent = Intent(this, AccueilActivity::class.java)
             startActivity(intent)
         }
+
+
+
 
     }
 
