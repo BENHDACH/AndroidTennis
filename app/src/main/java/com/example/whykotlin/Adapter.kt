@@ -1,16 +1,11 @@
 package com.example.whykotlin
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.whykotlin.databinding.ActivityClendrierBinding
 import com.example.whykotlin.databinding.CellHourBinding
 import java.util.Calendar
-import java.util.Locale
 
 class Adapter(val clickListener: (Int, Int) -> Unit, val flecheClick: Boolean, val terrain: String) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
     class CellViewHolder(binding: CellHourBinding): RecyclerView.ViewHolder(binding.root) {
@@ -30,6 +25,11 @@ class Adapter(val clickListener: (Int, Int) -> Unit, val flecheClick: Boolean, v
         //val plate = items[position]
         //Log.e("CroisMoii","Les position ${position}")
        // Log.e("FLeche ?","${flecheClick}")
+
+        var bonusWeekDay = 0
+        if(flecheClick){ //Semaine 2 actif ?
+            bonusWeekDay = 7 //Ajouter 7 jours au jours en colonne (a envoyer vers reservation)
+        }
         val hour = position / 8 //Chaque ligne de 8 element on revient à la ligne donc chaque ligne est une heure
         val weekDay = position % 8 //Chaque colonne
         //--------
@@ -101,14 +101,21 @@ class Adapter(val clickListener: (Int, Int) -> Unit, val flecheClick: Boolean, v
             SI la valeur de ce jour et cette heure est O || X alors holder.hourLabel.text = "O" || "X"
 
                 FIN */
-            holder.hourLabel.text = "O"
-            holder.hourLabel.rotation = 0F
+            if(terrain=="T1"){
+                //text = GET VALUE ON DATABASE FROM T1 AT GOOD TIME AND HOUR
+                holder.hourLabel.text = "O"
+
+            }
+            else if(terrain=="T2"){
+                //text = GET VALUE ON DATABASE FROM T2 AT GOOD TIME AND HOUR
+                holder.hourLabel.text = "O"
+            }
+
             holder.hourLabel.setTextColor(Color.parseColor("#FF00FF00"))
+            holder.hourLabel.rotation = 0F
             holder.hourLabel.setTextSize(1,30f)
             holder.hourLabel.setOnClickListener{
-                //val intent = Intent(ClendrierActivity::class.java, ReservationActivity::class.java)
-                //startActivity(intent)
-                clickListener(weekDay, hour)
+                clickListener(weekDay+bonusWeekDay, hour)
             }
 
         }

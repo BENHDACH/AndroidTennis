@@ -10,7 +10,13 @@ import android.widget.Toast
 import com.example.whykotlin.databinding.ActivityAccueilBinding
 import com.example.whykotlin.databinding.ActivityAjoutadhBinding
 import com.google.android.gms.common.internal.Objects.ToStringHelper
+import com.google.firebase.database.IgnoreExtraProperties
 
+@IgnoreExtraProperties
+data class Adherent(val adhName: String? = null, val adhPsw: String? = null, val adhRk: String? = null) {
+    // Null default values create a no-argument default constructor, which is needed
+    // for deserialization from a DataSnapshot.
+}
 class AjoutadhActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAjoutadhBinding
@@ -28,16 +34,16 @@ class AjoutadhActivity : AppCompatActivity() {
 
         //modifier pour avoir les données rentrer au clavier
 
-        writeNewUser("M","MBS","J.hotmail")
+        //writeNewAdh("adh1","Alexis","kotleen")
 
         supportActionBar?.title = "Ajouter un adhérent"
     }
 
 
-    fun writeNewUser(userId: String, userPsw: String, userRk: String) {
-        val user = User(userPsw, userRk)
+    fun writeNewAdh(adhId: String, adhNom: String, adhPsw: String,  adhRk: String = "1") {
+        val adhr = Adherent(adhNom, adhPsw, adhRk)
 
-        Data.database.reference.child("users").child(userId).setValue(user)
+        Data.database.reference.child("users").child(adhId).setValue(adhr)
     }
 
 
@@ -91,6 +97,7 @@ class AjoutadhActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
+            writeNewAdh("adhe1", "${binding.newname2.text.toString()}", "${binding.newpass2.text.toString()}")
         }
 
     }

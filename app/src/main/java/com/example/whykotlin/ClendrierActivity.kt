@@ -40,10 +40,10 @@ class ClendrierActivity : AppCompatActivity() {
         binding.buttonFleche.setOnClickListener{
             fleche = !fleche
             if(fleche){
-                binding.buttonFleche.text = "-"
+                binding.buttonFleche.text = "<"
             }
             else{
-                binding.buttonFleche.text = "+"
+                binding.buttonFleche.text = ">"
             }
 
 
