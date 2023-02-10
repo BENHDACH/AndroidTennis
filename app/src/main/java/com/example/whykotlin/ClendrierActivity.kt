@@ -26,14 +26,14 @@ class ClendrierActivity : AppCompatActivity() {
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 8)
         var terrain = intent.getStringExtra("Terrain")
-        var nameUserCurrent = intent.getStringExtra("recupName")
+        var nameUserCurrent = intent.getStringExtra("nameUserT1")
         supportActionBar?.title = terrain
 
         binding.recyclerView.adapter = Adapter ({ weekday, hour ->
             val intent = Intent(this, ReservationActivity::class.java)
             intent.putExtra("Heure","${hour+6}")
             intent.putExtra("Jour","${weekday}")
-            intent.putExtra("Nom","${nameUserCurrent}")
+            intent.putExtra("Nom","${nameUserCurrent.toString()}")
             startActivity(intent)
         },fleche,terrain.toString())
 

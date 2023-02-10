@@ -29,7 +29,6 @@ class AccueilActivity : AppCompatActivity() {
         currentCategory = category ?: Category.RESERVATIONT1
 
         //supportActionBar?.title = categoryName()
-
         buttonsListener()
     }
 
@@ -60,17 +59,21 @@ class AccueilActivity : AppCompatActivity() {
         binding.resT1.setOnClickListener {
             Log.d("button", "Click sur button reservation1")
             Toast.makeText(this, "res1", Toast.LENGTH_LONG).show()
-
+            var recupName = intent.getStringExtra("nameUser")
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra("Terrain","T1")
+            intent.putExtra("nameUserT1", "${recupName.toString()}")
+
             startActivity(intent)
 
         }
         // On vas dans la resa terrain2
         binding.resT2.setOnClickListener {
             Toast.makeText(this, "res2", Toast.LENGTH_LONG).show()
+            var recupName = intent.getStringExtra("nameUser")
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra("Terrain","T2")
+            intent.putExtra("nameUserT1", "${recupName.toString()}")
             startActivity(intent)
 
         }
@@ -96,6 +99,7 @@ class AccueilActivity : AppCompatActivity() {
         //remplacer le test par le flag / rang du admin
         //quand admin rank 0
        var recupRk = intent.getStringExtra("rangUser")
+
         Log.e("ra", "${recupRk}")
         if (recupRk == "0") {
             binding.ajoutadh.setOnClickListener {
@@ -109,4 +113,6 @@ class AccueilActivity : AppCompatActivity() {
             binding.ajoutadh.visibility = View.GONE
         }
     }
+
+
 }

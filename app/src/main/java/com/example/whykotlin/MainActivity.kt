@@ -92,12 +92,10 @@ class MainActivity : AppCompatActivity() {
 //
     private fun accessHome(userName: String?, userRk: String?){
         val intent = Intent(this, AccueilActivity::class.java)
-        val intent2 = Intent(this, ReservationActivity::class.java)
         Toast.makeText(this, "Bienvenue !", Toast.LENGTH_LONG).show()
         intent.putExtra("rangUser", "${userRk.toString()}")
         intent.putExtra("nameUser", "${userName.toString()}")
-        intent2.putExtra("nameUser", "${userName.toString()}")
-        Log.e("rkkk", "${userRk.toString()}")
+        Log.e("tai", "${userName.toString()}")
 
         startActivity(intent)
     }
