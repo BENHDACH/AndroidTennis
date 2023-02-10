@@ -62,7 +62,7 @@ class AccueilActivity : AppCompatActivity() {
             Toast.makeText(this, "res1", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, ClendrierActivity::class.java)
-            intent.putExtra(ClendrierActivity.extraKeyr, Category.RESERVATIONT1)
+            intent.putExtra("Terrain","T1")
             startActivity(intent)
 
         }
@@ -70,7 +70,7 @@ class AccueilActivity : AppCompatActivity() {
         binding.resT2.setOnClickListener {
             Toast.makeText(this, "res2", Toast.LENGTH_LONG).show()
             val intent = Intent(this, ClendrierActivity::class.java)
-            intent.putExtra(ClendrierActivity.extraKeyr, Category.RESERVATIONT2)
+            intent.putExtra("Terrain","T2")
             startActivity(intent)
 
         }
