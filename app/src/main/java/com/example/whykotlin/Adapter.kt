@@ -122,6 +122,7 @@ class Adapter(val clickListener: (Int, Int, String, String, Boolean, String) -> 
                  if(holder.hourLabel.text == "X"){
                       xTrue = true
                      if(resName==Data.theUserName){
+                         holder.hourLabel.text = "V"
                          holder.hourLabel.setTextColor(Color.parseColor("#FFFF770E"))
                      }
                      else{
