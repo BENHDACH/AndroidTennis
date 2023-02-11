@@ -66,7 +66,8 @@ class ClendrierActivity : AppCompatActivity() {
                     intent.putExtra("Nom", "${nameUserCurrent}")
                     intent.putExtra("CheminJour","${dayForData}")
                     intent.putExtra("terrain","${terrain}")
-                    Log.e(" X","et rank ok ?! ${rankUserCurrent}")
+                    //On dit a reservation que c'est une annulation qui pourra être faite
+                    intent.putExtra("Annul",true)
                     startActivity(intent)
                 }
             }
@@ -78,7 +79,7 @@ class ClendrierActivity : AppCompatActivity() {
                 intent.putExtra("Nom", "${nameUserCurrent}")
                 intent.putExtra("CheminJour","${dayForData}")
                 intent.putExtra("terrain","${terrain}")
-                Log.e("Pas X","OOOO")
+                intent.putExtra("Annul",false)
                 startActivity(intent)
             }
         }, fleche, terrain.toString())
@@ -103,6 +104,8 @@ class ClendrierActivity : AppCompatActivity() {
                         intent.putExtra("Nom", "${nameUserCurrent}")
                         intent.putExtra("CheminJour","${dayForData}")
                         intent.putExtra("terrain","${terrain}")
+                        //On dit a reservation que c'est une annulation qui pourra être faite
+                        intent.putExtra("Annul",true)
                         startActivity(intent)
                     }
                 }
@@ -114,6 +117,7 @@ class ClendrierActivity : AppCompatActivity() {
                     intent.putExtra("Nom", "${nameUserCurrent}")
                     intent.putExtra("CheminJour","${dayForData}")
                     intent.putExtra("terrain","${terrain}")
+                    intent.putExtra("Annul",false)
                     startActivity(intent)
                 }
 

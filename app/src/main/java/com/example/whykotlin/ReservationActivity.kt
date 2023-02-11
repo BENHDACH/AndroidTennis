@@ -32,6 +32,7 @@ class ReservationActivity : AppCompatActivity() {
         ShowAdh()
         var participant = ""
         var clickCount = 0
+        var annulation = intent.getBooleanExtra("Annul",false)
 
         binding.listAd.layoutManager = LinearLayoutManager(this)
         binding.plusadh.setOnClickListener {
@@ -39,7 +40,15 @@ class ReservationActivity : AppCompatActivity() {
             clickCount++
             binding.listAd.adapter = AdapterReserv(participant,clickCount)
         }
-        buttonListener()
+        if(annulation){
+            binding.enregistre.text = "Annulation"
+            buttonListener("O")
+        }
+        else{
+            binding.enregistre.text = "Enregistre"
+            buttonListener("X")
+        }
+
     }
 
     override fun onStart() {
@@ -91,11 +100,11 @@ class ReservationActivity : AppCompatActivity() {
         
     }
 
-    private fun buttonListener() {
+    private fun buttonListener(value:String) {
         val dayPlan = intent.getStringExtra("CheminJour")
         val heure = intent.getStringExtra("Heure")+"H"
         val planning = intent.getStringExtra("terrain")
-        val reservConfirm = HeureJour("X","${intent.getStringExtra("Nom").toString()}")
+        val reservConfirm = HeureJour("$value","${intent.getStringExtra("Nom").toString()}")
         binding.enregistre.setOnClickListener {
             Toast.makeText(this, "réservé", Toast.LENGTH_LONG).show()
 
