@@ -16,10 +16,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 import com.google.firebase.database.ValueEventListener
 
 @IgnoreExtraProperties
-data class Adherent(val userName: String? = null, val adhPsw: String? = null, val adhRk: String? = null) {
-    // Null default values create a no-argument default constructor, which is needed
-    // for deserialization from a DataSnapshot.
-}
+
 class AjoutadhActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAjoutadhBinding
@@ -45,7 +42,7 @@ class AjoutadhActivity : AppCompatActivity() {
 
 
     fun writeNewAdh(adhId: String, userName: String, adhPsw: String, adhRk: String = "1") {
-        val adhr = Adherent(userName, adhPsw, adhRk)
+        val adhr = User(userName, adhPsw, adhRk)
 
         Data.database.reference.child("users").child(adhId).setValue(adhr)
     }
@@ -61,7 +58,7 @@ class AjoutadhActivity : AppCompatActivity() {
                     Log.d("dataBase", snapshot.toString())
                     if (snapshot.exists()) {
                         Log.d("d", "PEOEOEO")
-                        val user = snapshot.children.first().getValue(Adherent::class.java)
+                        val user = snapshot.children.first().getValue(User::class.java)
                         binding.enr.visibility = View.GONE //efface le bouton enregistrer
                         binding.supradh.visibility = View.VISIBLE //on affiche le bouton supprimer
 
