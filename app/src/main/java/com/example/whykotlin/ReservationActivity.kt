@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
@@ -27,6 +28,9 @@ class ReservationActivity : AppCompatActivity() {
         binding = ActivityReservationAvtivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.currentRes.visibility = View.GONE
+        binding.textRes.visibility = View.GONE
+
         supportActionBar?.title = "Réservation"
         ShowDate()
         ShowAdh()
@@ -42,6 +46,9 @@ class ReservationActivity : AppCompatActivity() {
         }
         if(annulation){
             binding.enregistre.text = "Annulation"
+            binding.currentRes.visibility = View.VISIBLE
+            binding.textRes.visibility = View.VISIBLE
+            binding.currentRes.text = intent.getStringExtra("resUser")
             buttonListener("O")
         }
         else{

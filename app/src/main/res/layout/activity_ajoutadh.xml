@@ -108,4 +108,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/home" />
 
+    <Button
+        android:id="@+id/modifadh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifier Mot de passe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newpass" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

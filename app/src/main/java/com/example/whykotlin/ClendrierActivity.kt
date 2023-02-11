@@ -65,6 +65,7 @@ class ClendrierActivity : AppCompatActivity() {
                     intent.putExtra("terrain","${terrain}")
                     //On dit a reservation que c'est une annulation qui pourra être faite
                     intent.putExtra("Annul",true)
+                    intent.putExtra("resUser","${resName}")
                     startActivity(intent)
                 }
             }
@@ -101,6 +102,7 @@ class ClendrierActivity : AppCompatActivity() {
                         intent.putExtra("terrain","${terrain}")
                         //On dit a reservation que c'est une annulation qui pourra être faite
                         intent.putExtra("Annul",true)
+                        intent.putExtra("resUser","${resName}")
                         startActivity(intent)
                     }
                 }
