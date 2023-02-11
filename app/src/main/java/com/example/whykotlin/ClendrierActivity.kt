@@ -51,19 +51,16 @@ class ClendrierActivity : AppCompatActivity() {
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 8)
         var terrain = intent.getStringExtra("Terrain")
-        var nameUserCurrent = intent.getStringExtra("nameUser")
-        var rankUserCurrent = intent.getStringExtra("rankUser")
+
         supportActionBar?.title = terrain
 
         binding.recyclerView.adapter = Adapter({ weekday, hour, dayForData, terrain, xTrue, resName ->
             if(xTrue == true){
                 //si c'est un admin il peut y accedez
-                Log.e("Verif","le nom current: ${nameUserCurrent.toString()}, le nom createur: ${resName}")
-                if(rankUserCurrent=="0" || nameUserCurrent.toString()==resName){
+                if(Data.theUserRank=="0" || Data.theUserName==resName){
                     val intent = Intent(this, ReservationActivity::class.java)
                     intent.putExtra("Heure", "${hour + 6}")
                     intent.putExtra("Jour", "${weekday}")
-                    intent.putExtra("Nom", "${nameUserCurrent}")
                     intent.putExtra("CheminJour","${dayForData}")
                     intent.putExtra("terrain","${terrain}")
                     //On dit a reservation que c'est une annulation qui pourra être faite
@@ -76,7 +73,6 @@ class ClendrierActivity : AppCompatActivity() {
                 val intent = Intent(this, ReservationActivity::class.java)
                 intent.putExtra("Heure", "${hour + 6}")
                 intent.putExtra("Jour", "${weekday}")
-                intent.putExtra("Nom", "${nameUserCurrent}")
                 intent.putExtra("CheminJour","${dayForData}")
                 intent.putExtra("terrain","${terrain}")
                 intent.putExtra("Annul",false)
@@ -97,11 +93,10 @@ class ClendrierActivity : AppCompatActivity() {
             binding.recyclerView.adapter = Adapter({ weekday, hour, dayForData, terrain, xTrue,resName ->
                 if(xTrue == true){
                     //si c'est un admin il peut y accedez
-                    if(rankUserCurrent=="0" || nameUserCurrent.toString()==resName){
+                    if(Data.theUserRank=="0" || Data.theUserName==resName){
                         val intent = Intent(this, ReservationActivity::class.java)
                         intent.putExtra("Heure", "${hour + 6}")
                         intent.putExtra("Jour", "${weekday}")
-                        intent.putExtra("Nom", "${nameUserCurrent}")
                         intent.putExtra("CheminJour","${dayForData}")
                         intent.putExtra("terrain","${terrain}")
                         //On dit a reservation que c'est une annulation qui pourra être faite
@@ -114,7 +109,6 @@ class ClendrierActivity : AppCompatActivity() {
                     val intent = Intent(this, ReservationActivity::class.java)
                     intent.putExtra("Heure", "${hour + 6}")
                     intent.putExtra("Jour", "${weekday}")
-                    intent.putExtra("Nom", "${nameUserCurrent}")
                     intent.putExtra("CheminJour","${dayForData}")
                     intent.putExtra("terrain","${terrain}")
                     intent.putExtra("Annul",false)

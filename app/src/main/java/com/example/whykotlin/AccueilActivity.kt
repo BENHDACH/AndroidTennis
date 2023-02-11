@@ -56,16 +56,14 @@ class AccueilActivity : AppCompatActivity() {
     private fun buttonsListener() {
         //remplacer le test par le flag / rang du admin
         //quand admin rank 0
-        var recupRk = intent.getStringExtra("rangUser")
+        var recupRk = Data.theUserRank
         // On vas dans la resa du terrain1
         binding.resT1.setOnClickListener {
             Log.d("button", "Click sur button reservation1")
             Toast.makeText(this, "res1", Toast.LENGTH_LONG).show()
-            var recupName = intent.getStringExtra("nameUser")
+            var recupName = Data.theUserName
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra("Terrain","T1")
-            intent.putExtra("nameUser", "${recupName.toString()}")
-            intent.putExtra("rankUser","${recupRk.toString()}")
 
             startActivity(intent)
 
@@ -73,11 +71,9 @@ class AccueilActivity : AppCompatActivity() {
         // On vas dans la resa terrain2
         binding.resT2.setOnClickListener {
             Toast.makeText(this, "res2", Toast.LENGTH_LONG).show()
-            var recupName = intent.getStringExtra("nameUser")
+            var recupName = Data.theUserName
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra("Terrain","T2")
-            intent.putExtra("nameUser", "${recupName.toString()}")
-            intent.putExtra("rankUser","${recupRk.toString()}")
             startActivity(intent)
 
         }

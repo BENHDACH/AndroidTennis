@@ -71,8 +71,6 @@ class ReservationActivity : AppCompatActivity() {
         Log.d("LifeCycle", "MenuActivity onStart")
     }
     private fun ShowDate() {
-       // binding.idReserv.text = "ThierryH"
-      //  binding.nomDate.text = getString(R.string.nomDate)
 
         binding.textTime.text = intent.getStringExtra("Heure")+"h"
         val date = intent.getStringExtra("Jour")
@@ -93,7 +91,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun ShowAdh() {
-        var recupName = intent.getStringExtra("Nom")
+        var recupName = Data.theUserName
         //val user = Data.database.getReference("userName")
         Log.e("test", "${recupName}")
         binding.idReserv.text = "${recupName}"
@@ -104,7 +102,7 @@ class ReservationActivity : AppCompatActivity() {
         val dayPlan = intent.getStringExtra("CheminJour")
         val heure = intent.getStringExtra("Heure")+"H"
         val planning = intent.getStringExtra("terrain")
-        val reservConfirm = HeureJour("$value","${intent.getStringExtra("Nom").toString()}")
+        val reservConfirm = HeureJour("$value","${Data.theUserName}")
         binding.enregistre.setOnClickListener {
             Toast.makeText(this, "réservé", Toast.LENGTH_LONG).show()
 
