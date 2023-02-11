@@ -64,13 +64,13 @@ class AjoutadhActivity : AppCompatActivity() {
 
                         binding.supradh.setOnClickListener { //on rend le bouton supprimer clicable
                             Log.e("po", "fait partie")
-                            suppClick();
+                            suppClick(binding.newname2.text.toString());
                         }
                     }
                     if (!snapshot.exists()) {
                         Log.e("jo", "marche pas")
                         writeNewAdh(
-                            "userR",
+                            "${binding.newname2.text.toString()}-id",
                             "${binding.newname2.text.toString()}",
                             "${binding.newpass2.text.toString()}",
                             "1"
@@ -96,9 +96,13 @@ class AjoutadhActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun suppClick() {
-        val intent = Intent(this, AccueilActivity::class.java)
-        startActivity(intent)
+    private fun suppClick(userID: String) {
+        //On
+        Data.database.reference.child("users").child("${userID}-id").removeValue().addOnSuccessListener {
+            Toast.makeText(this,"${userID}-id is no more...",Toast.LENGTH_LONG).show()
+        }.addOnFailureListener {
+            Toast.makeText(this,"ERROR on suppClick(userID)",Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun buttonsListener() {
