@@ -54,7 +54,9 @@ class AccueilActivity : AppCompatActivity() {
     }
 
     private fun buttonsListener() {
-
+        //remplacer le test par le flag / rang du admin
+        //quand admin rank 0
+        var recupRk = intent.getStringExtra("rangUser")
         // On vas dans la resa du terrain1
         binding.resT1.setOnClickListener {
             Log.d("button", "Click sur button reservation1")
@@ -62,7 +64,8 @@ class AccueilActivity : AppCompatActivity() {
             var recupName = intent.getStringExtra("nameUser")
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra("Terrain","T1")
-            intent.putExtra("nameUserT1", "${recupName.toString()}")
+            intent.putExtra("nameUser", "${recupName.toString()}")
+            intent.putExtra("rankUser","${recupRk.toString()}")
 
             startActivity(intent)
 
@@ -73,7 +76,8 @@ class AccueilActivity : AppCompatActivity() {
             var recupName = intent.getStringExtra("nameUser")
             val intent = Intent(this, ClendrierActivity::class.java)
             intent.putExtra("Terrain","T2")
-            intent.putExtra("nameUserT1", "${recupName.toString()}")
+            intent.putExtra("nameUser", "${recupName.toString()}")
+            intent.putExtra("rankUser","${recupRk.toString()}")
             startActivity(intent)
 
         }
@@ -96,9 +100,7 @@ class AccueilActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //remplacer le test par le flag / rang du admin
-        //quand admin rank 0
-       var recupRk = intent.getStringExtra("rangUser")
+
 
         Log.e("ra", "${recupRk}")
         if (recupRk == "0") {

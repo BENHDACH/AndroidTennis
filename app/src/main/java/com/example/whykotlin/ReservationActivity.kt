@@ -14,6 +14,7 @@ import java.util.Locale
 
 class ReservationActivity : AppCompatActivity() {
 
+
     companion object {
         val extraKeys = "extrakeys"
     }
@@ -91,8 +92,14 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun buttonListener() {
+        val dayPlan = intent.getStringExtra("CheminJour")
+        val heure = intent.getStringExtra("Heure")+"H"
+        val planning = intent.getStringExtra("terrain")
+        val reservConfirm = HeureJour("X","${intent.getStringExtra("Nom").toString()}")
         binding.enregistre.setOnClickListener {
             Toast.makeText(this, "réservé", Toast.LENGTH_LONG).show()
+
+            Data.database.reference.child(planning.toString()).child(dayPlan.toString()).child(heure).setValue(reservConfirm)
 
             val intent = Intent(this, AccueilActivity::class.java)
             startActivity(intent)
