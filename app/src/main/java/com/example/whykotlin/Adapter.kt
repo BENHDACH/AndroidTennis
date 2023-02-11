@@ -121,7 +121,13 @@ class Adapter(val clickListener: (Int, Int, String, String, Boolean, String) -> 
                  resName = dataSnapshot.child("identifiant").getValue(String::class.java).toString()
                  if(holder.hourLabel.text == "X"){
                       xTrue = true
-                     holder.hourLabel.setTextColor(Color.parseColor("#FFFF0000"))
+                     if(resName==Data.theUserName){
+                         holder.hourLabel.setTextColor(Color.parseColor("#FFFF770E"))
+                     }
+                     else{
+                         holder.hourLabel.setTextColor(Color.parseColor("#FFFF0000"))
+                     }
+
                  }
                  else if(holder.hourLabel.text == "O"){
                      xTrue = false
