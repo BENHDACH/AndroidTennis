@@ -57,14 +57,26 @@ class AjoutadhActivity : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.d("dataBase", snapshot.toString())
                     if (snapshot.exists()) {
-                        Log.d("d", "PEOEOEO")
+
                         val user = snapshot.children.first().getValue(User::class.java)
                         binding.enr.visibility = View.GONE //efface le bouton enregistrer
-                        binding.supradh.visibility = View.VISIBLE //on affiche le bouton supprimer
+
+                        //Si l'utilisateur entre son propre nom, il peut modifié son mot de passe
+                        if(binding.newname2.text.toString()==Data.theUserName){
+
+                            binding.modifadh.visibility = View.VISIBLE
+                        }
+                        //si c'est un autre nom il peut le supprimer
+                        else{
+                            binding.supradh.visibility = View.VISIBLE //on affiche le bouton supprimer
+                        }
+
 
                         binding.supradh.setOnClickListener { //on rend le bouton supprimer clicable
-                            Log.e("po", "fait partie")
                             suppClick(binding.newname2.text.toString());
+                        }
+                        binding.modifadh.setOnClickListener{
+                            modifyClick("${Data.theUserName}-id",binding.newpass2.text.toString())
                         }
                     }
                     if (!snapshot.exists()) {
@@ -97,12 +109,16 @@ class AjoutadhActivity : AppCompatActivity() {
     }
 
     private fun suppClick(userID: String) {
-        //On
+        //On supprime l'utilisateur se trouvant dans users---SonNOM-id
         Data.database.reference.child("users").child("${userID}-id").removeValue().addOnSuccessListener {
             Toast.makeText(this,"${userID}-id is no more...",Toast.LENGTH_LONG).show()
         }.addOnFailureListener {
             Toast.makeText(this,"ERROR on suppClick(userID)",Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun modifyClick(userID: String, newPsw: String){
+        Data.database.reference.child("users").child("${userID}-id").child("userPsw").setValue(newPsw)
     }
 
     private fun buttonsListener() {
@@ -111,6 +127,7 @@ class AjoutadhActivity : AppCompatActivity() {
             Log.d("textnewname", "Click sur newname")
         }*/
         binding.supradh.visibility = View.GONE //on n'affiche pas le bouton supprimer
+        binding.modifadh.visibility = View.GONE
 
         binding.retourhome.setOnClickListener {
             val intent = Intent(this, AccueilActivity::class.java)
