@@ -22,7 +22,7 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = "CHAT"
+        supportActionBar?.title = " CHAT"
         buttonListener()
     }
 
