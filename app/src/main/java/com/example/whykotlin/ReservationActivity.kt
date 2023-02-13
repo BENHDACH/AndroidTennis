@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
@@ -13,6 +14,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class ReservationActivity : AppCompatActivity() {
+
 
     companion object {
         val extraKeys = "extrakeys"
@@ -26,11 +28,15 @@ class ReservationActivity : AppCompatActivity() {
         binding = ActivityReservationAvtivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.currentRes.visibility = View.GONE
+        binding.textRes.visibility = View.GONE
+
         supportActionBar?.title = "Réservation"
         ShowDate()
         ShowAdh()
         var participant = ""
         var clickCount = 0
+        var annulation = intent.getBooleanExtra("Annul",false)
 
         binding.listAd.layoutManager = LinearLayoutManager(this)
         binding.plusadh.setOnClickListener {
@@ -38,7 +44,18 @@ class ReservationActivity : AppCompatActivity() {
             clickCount++
             binding.listAd.adapter = AdapterReserv(participant,clickCount)
         }
-        buttonListener()
+        if(annulation){
+            binding.enregistre.text = "Annulation"
+            binding.currentRes.visibility = View.VISIBLE
+            binding.textRes.visibility = View.VISIBLE
+            binding.currentRes.text = intent.getStringExtra("resUser")
+            buttonListener("O")
+        }
+        else{
+            binding.enregistre.text = "Enregistre"
+            buttonListener("X")
+        }
+
     }
 
     override fun onStart() {
@@ -61,8 +78,6 @@ class ReservationActivity : AppCompatActivity() {
         Log.d("LifeCycle", "MenuActivity onStart")
     }
     private fun ShowDate() {
-       // binding.idReserv.text = "ThierryH"
-      //  binding.nomDate.text = getString(R.string.nomDate)
 
         binding.textTime.text = intent.getStringExtra("Heure")+"h"
         val date = intent.getStringExtra("Jour")
@@ -83,16 +98,22 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun ShowAdh() {
-        var recupName = intent.getStringExtra("Nom")
+        var recupName = Data.theUserName
         //val user = Data.database.getReference("userName")
         Log.e("test", "${recupName}")
         binding.idReserv.text = "${recupName}"
         
     }
 
-    private fun buttonListener() {
+    private fun buttonListener(value:String) {
+        val dayPlan = intent.getStringExtra("CheminJour")
+        val heure = intent.getStringExtra("Heure")+"H"
+        val planning = intent.getStringExtra("terrain")
+        val reservConfirm = HeureJour("$value","${Data.theUserName}")
         binding.enregistre.setOnClickListener {
             Toast.makeText(this, "réservé", Toast.LENGTH_LONG).show()
+
+            Data.database.reference.child(planning.toString()).child(dayPlan.toString()).child(heure).setValue(reservConfirm)
 
             val intent = Intent(this, AccueilActivity::class.java)
             startActivity(intent)

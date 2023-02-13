@@ -93,8 +93,9 @@ class MainActivity : AppCompatActivity() {
     private fun accessHome(userName: String?, userRk: String?){
         val intent = Intent(this, AccueilActivity::class.java)
         Toast.makeText(this, "Bienvenue !", Toast.LENGTH_LONG).show()
-        intent.putExtra("rangUser", "${userRk.toString()}")
-        intent.putExtra("nameUser", "${userName.toString()}")
+    //On init les valeur pour les récuperez n'importe où dans les activités ensuite
+        Data.theUserName = userName.toString()
+        Data.theUserRank = userRk.toString()
         Log.e("tai", "${userName.toString()}")
 
         startActivity(intent)
