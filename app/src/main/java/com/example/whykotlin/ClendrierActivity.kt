@@ -28,6 +28,10 @@ data class HeureJour(val reservStatut: String? = null, val identifiant : String?
     // for deserialization from a DataSnapshot.
 }
 
+data class HeureDispo(val reservStatut: String? = null, var identifiants : MutableList<String>){
+
+}
+
 
 
 class ClendrierActivity : AppCompatActivity() {
@@ -48,6 +52,7 @@ class ClendrierActivity : AppCompatActivity() {
 
         generatorDataCal("planningT1")
         generatorDataCal("planningT2")
+        generatorDataCal("dispo")
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 8)
         var terrain = intent.getStringExtra("Terrain")
@@ -138,12 +143,8 @@ class ClendrierActivity : AppCompatActivity() {
             val idYear = cal.get(Calendar.YEAR)
             val idDayPlan = "${idDayOfMonth}-${idMonth}-${idYear}"
 
-            if (cal[Calendar.DAY_OF_WEEK] == Calendar.SATURDAY) {
-                samedi = true
-            }
-            else{
-                samedi = false
-            }
+            //Selon Android Studio c'est egale a if(cal.. == ...Saturday) true else false.
+            samedi = cal[Calendar.DAY_OF_WEEK] == Calendar.SATURDAY
 
             checkChild(idDayPlan, samedi, idDayPlan, planning)
 
@@ -155,10 +156,19 @@ class ClendrierActivity : AppCompatActivity() {
         Calendrier(dayPlan)
         DateJour(heure)
         val name = "AUTO"
-        val heureJour = HeureJour(bouton,name)
+        var listM = mutableListOf("AUTO")
 
+        var heureDispo = HeureDispo(bouton,listM)
+        var heureJour = HeureJour(bouton,name)
 
-        Data.database.reference.child("${planning}").child(dayPlan).child(heure).setValue(heureJour)
+        if(planning=="dispo"){
+            Data.database.reference.child("${planning}").child(dayPlan).child(heure).setValue(heureDispo)
+
+        }
+        else{
+            Data.database.reference.child("${planning}").child(dayPlan).child(heure).setValue(heureJour)
+
+        }
     }
 
     fun checkChild(idChild: String, samedi: Boolean, idDayPlan: String, planning: String) {
@@ -188,7 +198,7 @@ class ClendrierActivity : AppCompatActivity() {
         for (i in 7..21) {
 
             //Si c'est un samedi de 10h à 17h reservé sachant qu'on réserve 1h minimum 10-11h à 17-18h
-            if (samedi) {
+            if (samedi && planning != "dispo") {
 
                 if (i in 10..17) {
                     writeNewRes("${idDayPlan}", "${i.toString()}H", "X", planning)
