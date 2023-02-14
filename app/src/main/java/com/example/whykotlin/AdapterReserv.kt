@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whykotlin.Adapter
+import com.example.whykotlin.Data
 import com.example.whykotlin.databinding.ActivityReservationAvtivityBinding
 import com.example.whykotlin.databinding.CellReservBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 
-class AdapterReserv(val nom: String, val compte: Int):RecyclerView.Adapter<AdapterReserv.CellViewHolder>() {
+class AdapterReserv(val path: String):RecyclerView.Adapter<AdapterReserv.CellViewHolder>() {
 
     class CellViewHolder(binding:CellReservBinding) : RecyclerView.ViewHolder(binding.root) {
         val nameA = binding.nomAdh
@@ -24,17 +28,29 @@ class AdapterReserv(val nom: String, val compte: Int):RecyclerView.Adapter<Adapt
 
     override fun getItemCount(): Int {
         //Le nombre de text à afficher à définir...
-        return (4)
+        return (1)
     }
     override fun onBindViewHolder(holder: CellViewHolder, position: Int) {
 
-        if(compte-1==position){
-            holder.nameA.text = nom
-        }
+        val reference = Data.database.getReference("dispo/${path}")
 
-
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var list = dataSnapshot.child("identifiants").getValue() as MutableList<String>
+                var textDisplay = ""
+                for(i in 1 until list.size){
+                    textDisplay += "\n"+list[i]
+                }
+                holder.nameA.text = textDisplay
+            }
+            override fun onCancelled(error: DatabaseError) {
+                // Handle errors
+            }
+        })
 
     }
+
+
 
 
 

@@ -9,6 +9,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.whykotlin.databinding.ActivityReservationAvtivityBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.delay
 import layout.AdapterReserv
 import java.util.Calendar
 import java.util.Locale
@@ -21,6 +25,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     lateinit var binding: ActivityReservationAvtivityBinding
+    var hourReserved = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_avtivity)
@@ -33,27 +38,34 @@ class ReservationActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Réservation"
         ShowDate()
-        ShowAdh()
-        var participant = ""
-        var clickCount = 0
         var annulation = intent.getBooleanExtra("Annul",false)
+        var clickPlusAdh = true
 
         binding.listAd.layoutManager = LinearLayoutManager(this)
         binding.plusadh.setOnClickListener {
-            participant = binding.ajouterAdh.text.toString()
-            clickCount++
-            binding.listAd.adapter = AdapterReserv(participant,clickCount)
+            binding.listAd.adapter = AdapterReserv("${intent.getStringExtra("CheminJour")}/${intent.getStringExtra("Heure")}H")
+            if(clickPlusAdh){
+                binding.plusadh.text = "Cacher les disponnibilités"
+                binding.listAd.visibility = View.VISIBLE
+            }
+            else{
+
+                binding.plusadh.text = "Voir les disponnibilités"
+                binding.listAd.visibility = View.GONE
+            }
+            clickPlusAdh = !clickPlusAdh
+
         }
         if(annulation){
             binding.enregistre.text = "Annulation"
             binding.currentRes.visibility = View.VISIBLE
             binding.textRes.visibility = View.VISIBLE
             binding.currentRes.text = intent.getStringExtra("resUser")
-            buttonListener("O")
+            checkResAdh("O")
         }
         else{
             binding.enregistre.text = "Enregistre"
-            buttonListener("X")
+            checkResAdh("X")
         }
 
     }
@@ -109,23 +121,72 @@ class ReservationActivity : AppCompatActivity() {
         val dayPlan = intent.getStringExtra("CheminJour")
         val heure = intent.getStringExtra("Heure")+"H"
         val planning = intent.getStringExtra("terrain")
-        val reservConfirm = HeureJour("$value","${Data.theUserName}")
-        binding.enregistre.setOnClickListener {
-            Toast.makeText(this, "réservé", Toast.LENGTH_LONG).show()
 
-            Data.database.reference.child(planning.toString()).child(dayPlan.toString()).child(heure).setValue(reservConfirm)
+        binding.enregistre.setOnClickListener {
+            if(value=="X"){
+                val reservConfirm = HeureJour("$value","${Data.theUserName}")
+                Toast.makeText(this, "réservé", Toast.LENGTH_LONG).show()
+                Data.database.reference.child(planning.toString()).child(dayPlan.toString()).child(heure).setValue(reservConfirm)
+            }
+            else if(value=="O"){
+                val reservConfirm = HeureJour("$value","AUTO")
+                Toast.makeText(this, "Annulation confirmé", Toast.LENGTH_LONG).show()
+                Data.database.reference.child(planning.toString()).child(dayPlan.toString()).child(heure).setValue(reservConfirm)
+            }
 
             val intent = Intent(this, AccueilActivity::class.java)
             startActivity(intent)
+        }
+
+        if(value=="Toast"){
+            Toast.makeText(this,"Nombre de réservation maximal atteinte pour ce jour",Toast.LENGTH_LONG).show()
         }
         binding.backhome.setOnClickListener {
 
             val intent = Intent(this, AccueilActivity::class.java)
             startActivity(intent)
         }
+    }
 
+    private fun checkResAdh(value: String){
 
+        //Creer à la base pour break la boucle mais
+        // le dataSnapshot prend plus de temps que la boucle
+        // (la boucle finit mais la verification est toujorus en cours) il servira a empecher trop d'affichage...
+        var continuationBoucle: Boolean = true
+        //De 7h à 21h aujourd'hui on verifie les reservations
+        for(i in 7..21){
+        //Si il y'a eu 2 reservation (on ne peux pas réserver encore)
+            val reference = Data.database.getReference("${intent.getStringExtra("terrain").toString()}/${intent.getStringExtra("CheminJour").toString()}/${i.toString()+"H"}/identifiant")
+            reference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        if(Data.theUserName == dataSnapshot.getValue(String::class.java).toString()){
+                            hourReserved++
+                        }
+                        if(hourReserved>=2 && value=="X"){
+                            //On affiche le message une seule fois
+                            if(continuationBoucle){
+                                buttonListener("Toast")
+                                continuationBoucle = false
+                            }
 
+                        }
+                        //Si il y'a moins de 2 reservation (après avoir verifié de 7h à 21h) ou que l'action et une annulation on continue
+                        else if((hourReserved<2 && i==21) || value=="O"){
+                            buttonListener(value)
+                        }
+                    }
+                    else {
+
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error
+                }
+            })
+
+        }
 
     }
 

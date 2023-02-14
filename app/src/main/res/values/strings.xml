@@ -3,7 +3,7 @@
 
     <string name="resT1">Reserver-T1</string>
     <string name="resT2">Reserver-T2</string>
-    <string name="res">Reservations en cours</string>
+    <string name="disp">Disponnibilité</string>
     <string name="chat">Chat</string>
     <string name="ajoutadh">ajoutadherant</string>
     <string name="enregistre">Enregistrer</string>
