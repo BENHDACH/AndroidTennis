@@ -98,7 +98,12 @@ class Adapter(val clickListener: (Int, Int, String, String, Boolean, String) -> 
             holder.hourLabel.setTextSize(1,14f)
         }
         else{
+            if(terrain=="dispo"){
+                setDispo("${daysForData[weekDay-1]}/${hour.toInt()+6}H/",holder)
+            }
+            else{
                 setData("${daysForData[weekDay-1]}/${hour.toInt()+6}H/", holder, weekDay, bonusWeekDay, hour, daysForData, terrain)
+            }
         }
     }
 
@@ -147,15 +152,68 @@ class Adapter(val clickListener: (Int, Int, String, String, Boolean, String) -> 
                          clickListener(weekDay+bonusWeekDay, hour,daysForData[weekDay-1],"planningT2",xTrue,resName)
                      }
                  }
-
-
-                 // Do something with the retrieved value
              }
-
              override fun onCancelled(error: DatabaseError) {
                  // Handle errors
              }
          })
 
      }
+
+
+    private fun setDispo(path: String, holder: CellViewHolder){
+
+        var list: MutableList<String>
+        val reference = Data.database.getReference("dispo/${path}")
+
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                holder.hourLabel.text = dataSnapshot.child("reservStatut").getValue(String::class.java)
+                list = dataSnapshot.child("identifiants").getValue() as MutableList<String>
+                var found = "NOT"
+                if (list != null) {
+                    //On check toute la liste
+                    for (i in 0 until list.size) {
+                        //Si le nom de l'utilisaeur apparais on garde sa position
+                        if (list[i] == Data.theUserName) {
+                            found = i.toString()
+                        }
+                    }
+                }
+                //On set
+                if(found!="NOT"){
+                    holder.hourLabel.setTextColor(Color.parseColor("#FFFFFF00"))
+                } else{
+                    holder.hourLabel.setTextColor(Color.parseColor("#FFA9A9A9"))
+                }
+
+                holder.hourLabel.rotation = 0F
+                holder.hourLabel.setTextSize(1,30f)
+                holder.hourLabel.setOnClickListener{
+                    Log.e("La list est:","$list")
+                    if(found!="NOT"){
+                        //Dispo déjà présente il faut donc annuler la dispo
+                        list?.removeAt(found.toInt()) //d'où l'interêt de ne pas avoir un boolean ici
+                        Data.database.reference.child("dispo/${path}/identifiants").setValue(list)
+                        holder.hourLabel.setTextColor(Color.parseColor("#FFA9A9A9"))
+
+                    }
+                    else{
+                        //Pas de dispo set ici donc on l'ajoute et passe au jaune
+                        list?.add(Data.theUserName)
+                        Data.database.reference.child("dispo/${path}/identifiants").setValue(list)
+                        holder.hourLabel.setTextColor(Color.parseColor("#FFFFFF00"))
+
+
+
+                    }
+
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                // Handle errors
+            }
+        })
+    }
+
 }

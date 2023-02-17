@@ -41,7 +41,7 @@ class AccueilActivity : AppCompatActivity() {
         return when (currentCategory) {
             Category.RESERVATIONT1 -> getString(R.string.resT1)
             Category.RESERVATIONT2 -> getString(R.string.resT2)
-            Category.RESERVATIONS -> getString(R.string.res)
+            Category.RESERVATIONS -> getString(R.string.disp)
             Category.TCHAT -> getString(R.string.chat)
             Category.AJOUTADH -> getString(R.string.ajoutadh)
         }
@@ -78,6 +78,12 @@ class AccueilActivity : AppCompatActivity() {
 
         }
 
+        binding.dejares.setOnClickListener {
+            Toast.makeText(this, "Quand êtes vous libre pour jouer ?", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, ClendrierActivity::class.java)
+            intent.putExtra("Terrain","dispo")
+            startActivity(intent)
+        }
         /*//On vas dans nos réservations en cours
         binding.dejares.setOnClickListener {
             Toast.makeText(this, "resS", Toast.LENGTH_LONG).show()
