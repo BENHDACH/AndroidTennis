@@ -99,7 +99,6 @@ class ChatActivity : AppCompatActivity() {
         }
 
 
-
         buttonListener()
     }
 
