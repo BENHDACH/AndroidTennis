@@ -10,5 +10,6 @@
     <string name="nomDate">Date</string>
     <string name="nomTime">Heure</string>
     <string name="nomNotif">Choisir une heure pour le rappel:</string>
+    <string name="frog">Pensez à vos émissions et effacer les données inutiles !</string>
 </resources>
 

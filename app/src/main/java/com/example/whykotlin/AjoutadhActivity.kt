@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.IgnoreExtraProperties
 import com.google.firebase.database.ValueEventListener
+import java.util.*
 
 @IgnoreExtraProperties
 
@@ -29,7 +30,24 @@ class AjoutadhActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAjoutadhBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_ajoutadh)
+        var defautMois = 1
+        binding.textMois.text = "$defautMois mois avant"
+
+        binding.moinMois.setOnClickListener{
+            if(defautMois>1){
+                defautMois--
+                binding.textMois.text = "$defautMois mois avant"
+            }
+        }
+
+        binding.plusMois.setOnClickListener{
+            defautMois++
+            binding.textMois.text = "$defautMois mois avant"
+        }
+
+        binding.effaceMois.setOnClickListener{
+            greenWash(defautMois)
+        }
 
         buttonsListener()
         //getUser()
@@ -38,6 +56,43 @@ class AjoutadhActivity : AppCompatActivity() {
         //writeNewAdh("adh1","Alexis","kotleen")
 
         supportActionBar?.title = "Ajouter un adhérent"
+    }
+
+    fun greenWash(nbrMois : Int) {
+        var cal = Calendar.getInstance()
+        var dayId = 0
+        var monthId = 0
+        var yearId = 0
+        var planId = ""
+        for(i in 0..(nbrMois*31)){
+            cal.add(Calendar.DATE, -1)
+            dayId = cal.get(Calendar.DAY_OF_MONTH)
+            monthId = cal.get(Calendar.MONTH) + 1
+            yearId = cal.get(Calendar.YEAR)
+            planId = "${dayId}-${monthId}-${yearId}"
+
+            //On efface dans planningT1
+            Data.database.reference.child("planningT1").child("${planId}").removeValue()
+                .addOnSuccessListener {
+                }.addOnFailureListener {
+                    Toast.makeText(this, "ERROR on greenWash(nbrMois) =>T1", Toast.LENGTH_LONG).show()
+                }
+
+            //Pareil pour T2
+            Data.database.reference.child("planningT2").child("${planId}").removeValue()
+                .addOnSuccessListener {
+                }.addOnFailureListener {
+                    Toast.makeText(this, "ERROR on greenWash(nbrMois) =>T2", Toast.LENGTH_LONG).show()
+                }
+
+            //Pareil pour les disponnibilités
+            Data.database.reference.child("dispo").child("${planId}").removeValue()
+                .addOnSuccessListener {
+                }.addOnFailureListener {
+                    Toast.makeText(this, "ERROR on greenWash(nbrMois) =>Dispo", Toast.LENGTH_LONG).show()
+                }
+        }
+
     }
 
 
@@ -76,7 +131,7 @@ class AjoutadhActivity : AppCompatActivity() {
                             suppClick(binding.newname2.text.toString());
                         }
                         binding.modifadh.setOnClickListener{
-                            modifyClick("${Data.theUserName}-id",binding.newpass2.text.toString())
+                            modifyClick("${Data.theUserName}",binding.newpass2.text.toString())
                         }
                     }
                     if (!snapshot.exists()) {
