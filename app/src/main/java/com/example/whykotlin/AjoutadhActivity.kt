@@ -164,6 +164,10 @@ class AjoutadhActivity : AppCompatActivity() {
     }
 
     private fun suppClick(userID: String) {
+        //--->
+        //pour verifier si c'est un user de type admin il faut utiliser getUser et faire la suppression dedans, (avec un param par exemple)
+        //C'est necessaire car getUser() utilise un datasnapshot qui est plus lent que le code (un return ne marcherais pas non plus car il faut wait())
+        //--->
         //On supprime l'utilisateur se trouvant dans users---SonNOM-id
         Data.database.reference.child("users").child("${userID}-id").removeValue().addOnSuccessListener {
             Toast.makeText(this,"${userID}-id is no more...",Toast.LENGTH_LONG).show()

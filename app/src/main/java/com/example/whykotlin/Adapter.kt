@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import java.util.Calendar
 
-class Adapter(val clickListener: (Int, Int, String, String, Boolean, String) -> Unit, val flecheClick: Boolean, val terrain: String) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
+class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String) -> Unit, val flecheClick: Boolean, val terrain: String) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
     class CellViewHolder(binding: CellHourBinding): RecyclerView.ViewHolder(binding.root) {
         val hourLabel = binding.hourLabel
     }
@@ -102,12 +102,12 @@ class Adapter(val clickListener: (Int, Int, String, String, Boolean, String) -> 
                 setDispo("${daysForData[weekDay-1]}/${hour.toInt()+6}H/",holder)
             }
             else{
-                setData("${daysForData[weekDay-1]}/${hour.toInt()+6}H/", holder, weekDay, bonusWeekDay, hour, daysForData, terrain)
+                setData(month,"${daysForData[weekDay-1]}/${hour.toInt()+6}H/", holder, weekDay, bonusWeekDay, hour, daysForData, terrain)
             }
         }
     }
 
-     private fun setData(path: String, holder: CellViewHolder, weekDay: Int, bonusWeekDay: Int, hour: Int, daysForData: List<String>, terrain: String){
+     private fun setData(month : Int,path: String, holder: CellViewHolder, weekDay: Int, bonusWeekDay: Int, hour: Int, daysForData: List<String>, terrain: String){
          var xTrue = false
          var pathLastValue = path
          var resName = ""
@@ -144,12 +144,12 @@ class Adapter(val clickListener: (Int, Int, String, String, Boolean, String) -> 
 
                  if(terrain=="T1"){
                      holder.hourLabel.setOnClickListener{
-                         clickListener(weekDay+bonusWeekDay, hour,daysForData[weekDay-1],"planningT1",xTrue,resName)
+                         clickListener(month,weekDay+bonusWeekDay, hour,daysForData[weekDay-1],"planningT1",xTrue,resName)
                      }
                  }
                  else if(terrain=="T2"){
                      holder.hourLabel.setOnClickListener{
-                         clickListener(weekDay+bonusWeekDay, hour,daysForData[weekDay-1],"planningT2",xTrue,resName)
+                         clickListener(month,weekDay+bonusWeekDay, hour,daysForData[weekDay-1],"planningT2",xTrue,resName)
                      }
                  }
              }
