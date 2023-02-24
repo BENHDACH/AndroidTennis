@@ -35,8 +35,7 @@ data class HeureDispo(val reservStatut: String? = null, var identifiants : Mutab
 
 
 class ClendrierActivity : AppCompatActivity() {
-
-
+    
     private lateinit var binding: ActivityClendrierBinding
 
     companion object {
