@@ -35,8 +35,7 @@ data class HeureDispo(val reservStatut: String? = null, var identifiants : Mutab
 
 
 class ClendrierActivity : AppCompatActivity() {
-
-
+    
     private lateinit var binding: ActivityClendrierBinding
 
     companion object {
@@ -59,7 +58,7 @@ class ClendrierActivity : AppCompatActivity() {
 
         supportActionBar?.title = terrain
 
-        binding.recyclerView.adapter = Adapter({ weekday, hour, dayForData, terrain, xTrue, resName ->
+        binding.recyclerView.adapter = Adapter({ month,weekday, hour, dayForData, terrain, xTrue, resName ->
             if(xTrue == true){
                 //si c'est un admin il peut y accedez
                 if(Data.theUserRank=="0" || Data.theUserName==resName){
@@ -71,6 +70,7 @@ class ClendrierActivity : AppCompatActivity() {
                     //On dit a reservation que c'est une annulation qui pourra être faite
                     intent.putExtra("Annul",true)
                     intent.putExtra("resUser","${resName}")
+                    intent.putExtra("mois","${month}")
                     startActivity(intent)
                 }
             }
@@ -82,6 +82,7 @@ class ClendrierActivity : AppCompatActivity() {
                 intent.putExtra("CheminJour","${dayForData}")
                 intent.putExtra("terrain","${terrain}")
                 intent.putExtra("Annul",false)
+                intent.putExtra("mois","${month}")
                 startActivity(intent)
             }
         }, fleche, terrain.toString())
@@ -96,7 +97,7 @@ class ClendrierActivity : AppCompatActivity() {
             }
 
             /* Permet de reset après l'action des flèches le planning */
-            binding.recyclerView.adapter = Adapter({ weekday, hour, dayForData, terrain, xTrue,resName ->
+            binding.recyclerView.adapter = Adapter({ month, weekday, hour, dayForData, terrain, xTrue,resName ->
                 if(xTrue == true){
                     //si c'est un admin il peut y accedez
                     if(Data.theUserRank=="0" || Data.theUserName==resName){
@@ -108,6 +109,7 @@ class ClendrierActivity : AppCompatActivity() {
                         //On dit a reservation que c'est une annulation qui pourra être faite
                         intent.putExtra("Annul",true)
                         intent.putExtra("resUser","${resName}")
+                        intent.putExtra("mois","${month}")
                         startActivity(intent)
                     }
                 }
@@ -116,6 +118,7 @@ class ClendrierActivity : AppCompatActivity() {
                     val intent = Intent(this, ReservationActivity::class.java)
                     intent.putExtra("Heure", "${hour + 6}")
                     intent.putExtra("Jour", "${weekday}")
+                    intent.putExtra("mois","${month}")
                     intent.putExtra("CheminJour","${dayForData}")
                     intent.putExtra("terrain","${terrain}")
                     intent.putExtra("Annul",false)

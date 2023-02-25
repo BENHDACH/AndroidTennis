@@ -60,8 +60,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/plusadh"
@@ -102,17 +101,6 @@
         app:layout_constraintHorizontal_bias="0.63"
         app:layout_constraintStart_toStartOf="@+id/nomDate"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="241dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="12dp"
-        android:timePickerMode="spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.441"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nomNotif" />
 
     <TextView
         android:id="@+id/textTime"
@@ -164,5 +152,62 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/nomNotif"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/nomNotif">
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/minuteNumb"
+        android:layout_width="55dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="48dp"
+        android:hint="hint"
+        android:text="0"
+        android:textAlignment="textEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/nomNotif" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/hourNumb"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="48dp"
+        android:hint="0"
+        android:textAlignment="textEnd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomNotif" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="16dp"
+        android:text="m"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toEndOf="@+id/minuteNumb"
+        app:layout_constraintTop_toBottomOf="@+id/nomNotif" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="44dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="68dp"
+        android:text="H"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/hourNumb"
+        app:layout_constraintTop_toBottomOf="@+id/nomNotif" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
