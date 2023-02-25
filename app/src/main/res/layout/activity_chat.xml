@@ -8,6 +8,17 @@
     android:backgroundTint="@color/white"
     tools:context=".ChatActivity">
 
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="264dp"
+        android:layout_height="134dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/microsoftteams_image__6_" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/enterName"
         android:layout_width="360dp"
@@ -19,8 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.63">
+        app:layout_constraintTop_toBottomOf="@+id/imageView6">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/caseLink"
@@ -81,7 +91,7 @@
         android:id="@+id/buttonLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="24dp"
         android:text="Lets Chat !"
         app:layout_constraintBottom_toTopOf="@+id/textSend"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,16 +107,5 @@
         app:layout_constraintStart_toEndOf="@+id/textSend"
         app:layout_constraintTop_toTopOf="@+id/textSend"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="264dp"
-        android:layout_height="134dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/microsoftteams_image__6_" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
