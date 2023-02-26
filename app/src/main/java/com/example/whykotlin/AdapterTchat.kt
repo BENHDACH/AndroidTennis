@@ -13,34 +13,32 @@ import com.google.firebase.database.ValueEventListener
 import layout.AdapterReserv
 
 class AdapterTchat( val user1Name: String,
-                   val user2Name: String, val msg: String, val click :Boolean):RecyclerView.Adapter<AdapterTchat.CellViewHolder>() {
-
+                   val user2Name: String,
+                    val msg: String,
+                    val click :Boolean):RecyclerView.Adapter<AdapterTchat.CellViewHolder>() {
+    var notSend = false
     class CellViewHolder(binding: CellTchatBinding) : RecyclerView.ViewHolder(binding.root) {
         val textU1 = binding.textUser1
     }
 
-     var notSend = false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CellViewHolder {
         val binding = CellTchatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AdapterTchat.CellViewHolder(binding)
     }
-
     override fun getItemCount(): Int {
+        //On le fait en un seul texte (plus pratique pour afficher, moins pour effacer/modifier pour une amélioration potentielle...)
         return(1)
     }
-
     override fun onBindViewHolder(holder: CellViewHolder, position: Int) {
         setData("${user1Name}-${user2Name}/msg",holder)
         if(click){
             notSend = true
             addData("${user1Name}-${user2Name}/msg",holder)
         }
-
     }
 
 
     private fun setData(path: String, holder: AdapterTchat.CellViewHolder){
-
         val reference = Data.database.getReference("Tchat/${path}")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -58,7 +56,7 @@ class AdapterTchat( val user1Name: String,
         val reference = Data.database.getReference("Tchat/${path}")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //On recup les message precedents
+                //Si on a send on ajoute la valeur avec le nom de l'envoyeur: [...]
                 if(notSend){
                     Data.database.getReference("Tchat/${path}").setValue("${holder.textU1.text} \n\n ${Data.theUserName}: ${msg}")
                     notSend = !notSend

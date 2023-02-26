@@ -11,8 +11,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import java.util.Calendar
 
-class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String) -> Unit, val flecheClick: Boolean, val terrain: String) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
+class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String) -> Unit,
+              val flecheClick: Boolean,
+              val terrain: String) :RecyclerView.Adapter<Adapter.CellViewHolder>() {
     class CellViewHolder(binding: CellHourBinding): RecyclerView.ViewHolder(binding.root) {
+        //Correspond à une 'case' soit O/X/V
         val hourLabel = binding.hourLabel
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CellViewHolder {
@@ -26,36 +29,32 @@ class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String
 
 
     override fun onBindViewHolder(holder: CellViewHolder, position: Int) {
-        //val plate = items[position]
-        //Log.e("CroisMoii","Les position ${position}")
-       // Log.e("FLeche ?","${flecheClick}")
 
         var bonusWeekDay = 0
-        if(flecheClick){ //Semaine 2 actif ?
-            bonusWeekDay = 7 //Ajouter 7 jours au jours en colonne (a envoyer vers reservation)
-        }
         val hour = position / 8 //Chaque ligne de 8 element on revient à la ligne donc chaque ligne est une heure
         val weekDay = position % 8 //Chaque colonne
-        //--------
         //utiliser pour afficher le nom du jour
         var currentTNext : Array<String> = arrayOf("","","","","","","","")
         //utiliser pour get la data selon un id precis (avec années)
         var idDataNext : Array<String> = arrayOf("","","","","","","","")
         var xTrue : Boolean = false
         var calendar = Calendar.getInstance()
-        if(flecheClick){
-            calendar.add(Calendar.DATE,7)
-        }
-
         val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
         var samedi : Int = 0 //On est samedi par defaut et on verifiera le reste
         val month = calendar.get(Calendar.MONTH )+1
         val year = calendar.get(Calendar.YEAR) //Fonctionne pour l'id
-        //Log.e("LEL","Just give it ${month}")
         val currentT = "$dayOfMonth/$month "
         val idData = "$dayOfMonth-$month-$year"
-        for(i in 1..7){
 
+
+        //Semaine 2 actif ?
+        if(flecheClick){
+            bonusWeekDay = 7 //Ajouter 7 jours au jours en colonne (a envoyer vers reservation)
+            calendar.add(Calendar.DATE,7)
+        }
+
+
+        for(i in 1..7){
             calendar.add(Calendar.DATE,1)
             /* On cherche le jour correspondant au Samedi dans la semaine */
             var dayS = calendar[Calendar.DAY_OF_WEEK]
@@ -63,17 +62,15 @@ class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String
                 samedi = i+1 //On saute le jour [0] on est donc a i+1 jour de Samedi
 
             }
+            //On recupère les jours,mois et années (pour l'ID dans firebase et pour afficher sur le planning)
             var dayOfMonthNext = calendar.get(Calendar.DAY_OF_MONTH)
             var monthNext = calendar.get(Calendar.MONTH) +1
             var yearNext = calendar.get(Calendar.YEAR)
             currentTNext[i] = "$dayOfMonthNext/$monthNext"
             idDataNext[i] = "$dayOfMonthNext-$monthNext-$yearNext"
-
-
         }
 
-
-
+        //Une liste pour l'affichage sur calendrier (days) et une pour la database (daysForData)
         val days = listOf("${currentT}","${currentTNext[1]}", "${currentTNext[2]}", "${currentTNext[3]}", "${currentTNext[4]}", "${currentTNext[5]}", "${currentTNext[6]}")
         val daysForData = listOf("${idData}","${idDataNext[1]}","${idDataNext[2]}","${idDataNext[3]}","${idDataNext[4]}","${idDataNext[5]}","${idDataNext[6]}")
 
@@ -91,13 +88,14 @@ class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String
             holder.hourLabel.setTextColor(Color.parseColor("#FF000000"))
             holder.hourLabel.setTextSize(1,14f)
         }
-        //Position = 0 , est remplacer par un button dans ClendrierActivity et son xml
+        //Position = 0 , est remplacer par un button dans ClendrierActivity pour switch de semaine donc à ignorez ici.
         else if(hour ==0 && weekDay==0){
             holder.hourLabel.text = "/" //Vide
             holder.hourLabel.setTextColor(Color.parseColor("#FF000000"))
             holder.hourLabel.setTextSize(1,14f)
         }
         else{
+            //Soit on affiche les disponibilités (si Dispo) soit les réservations (si T1 ou T2)
             if(terrain=="dispo"){
                 setDispo("${daysForData[weekDay-1]}/${hour.toInt()+6}H/",holder)
             }
@@ -121,11 +119,12 @@ class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String
 
          reference.addValueEventListener(object : ValueEventListener {
              override fun onDataChange(dataSnapshot: DataSnapshot) {
-                 //Log.e("TAGAG","${dataSnapshot.getValue(String::class.java)}")
+                 //On donne à la 'case' la valeur de reservation (O,X)
                  holder.hourLabel.text = dataSnapshot.child("reservStatut").getValue(String::class.java)
                  resName = dataSnapshot.child("identifiant").getValue(String::class.java).toString()
                  if(holder.hourLabel.text == "X"){
                       xTrue = true
+                     //Si la reservation à était fait par l'utilisateur actuelle alors la valeur X sera afficher V en orange
                      if(resName==Data.theUserName){
                          holder.hourLabel.text = "V"
                          holder.hourLabel.setTextColor(Color.parseColor("#FFFF770E"))
@@ -139,8 +138,10 @@ class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String
                      xTrue = false
                      holder.hourLabel.setTextColor(Color.parseColor("#FF00FF00"))
                  }
+                 //On set cela ensuite car bug de rotation entre les cases Jours/Heures et reservations.
                  holder.hourLabel.rotation = 0F
                  holder.hourLabel.setTextSize(1,30f)
+
 
                  if(terrain=="T1"){
                      holder.hourLabel.setOnClickListener{
@@ -180,7 +181,7 @@ class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String
                         }
                     }
                 }
-                //On set
+                //On set la couleur
                 if(found!="NOT"){
                     holder.hourLabel.setTextColor(Color.parseColor("#FFFFFF00"))
                 } else{
@@ -190,7 +191,6 @@ class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String
                 holder.hourLabel.rotation = 0F
                 holder.hourLabel.setTextSize(1,30f)
                 holder.hourLabel.setOnClickListener{
-                    Log.e("La list est:","$list")
                     if(found!="NOT"){
                         //Dispo déjà présente il faut donc annuler la dispo
                         list?.removeAt(found.toInt()) //d'où l'interêt de ne pas avoir un boolean ici
@@ -203,8 +203,6 @@ class Adapter(val clickListener: (Int, Int, Int, String, String, Boolean, String
                         list?.add(Data.theUserName)
                         Data.database.reference.child("dispo/${path}/identifiants").setValue(list)
                         holder.hourLabel.setTextColor(Color.parseColor("#FFFFFF00"))
-
-
 
                     }
 

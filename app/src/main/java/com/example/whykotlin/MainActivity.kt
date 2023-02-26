@@ -15,27 +15,15 @@ data class User(val userName: String? = null, val userPsw: String? = null, val u
     // for deserialization from a DataSnapshot.
 }
 
-
-
-
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
-
-    //lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
-        writeNewUser("user3","adh","ad2", "1")
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //getUser()
         buttonsListener()
     }
 
@@ -77,12 +65,6 @@ class MainActivity : AppCompatActivity() {
             })
 
     }
-    fun writeNewUser(userId: String, userName: String, userPsw: String, userRk: String) {
-        val user = User(userName, userPsw, userRk)
-
-        Data.database.reference.child("users").child(userId).setValue(user)
-    }
-
 
     private fun buttonsListener() {
         binding.connexion.setOnClickListener{

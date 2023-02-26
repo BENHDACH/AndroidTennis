@@ -17,7 +17,7 @@ class AdapterReserv(val path: String):RecyclerView.Adapter<AdapterReserv.CellVie
 
     class CellViewHolder(binding:CellReservBinding) : RecyclerView.ViewHolder(binding.root) {
         val nameA = binding.nomAdh
-        }
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterReserv.CellViewHolder {
@@ -27,17 +27,19 @@ class AdapterReserv(val path: String):RecyclerView.Adapter<AdapterReserv.CellVie
 
 
     override fun getItemCount(): Int {
-        //Le nombre de text à afficher à définir...
+        //Le nombre de text à afficherà définir...
         return (1)
     }
     override fun onBindViewHolder(holder: CellViewHolder, position: Int) {
 
         val reference = Data.database.getReference("dispo/${path}")
 
+        //On regarde les identifiants dispo à ce moment.
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var list = dataSnapshot.child("identifiants").getValue() as MutableList<String>
                 var textDisplay = ""
+                //On les ecrit en sautant une ligne à chaque fois.
                 for(i in 1 until list.size){
                     textDisplay += "\n"+list[i]
                 }
@@ -49,11 +51,4 @@ class AdapterReserv(val path: String):RecyclerView.Adapter<AdapterReserv.CellVie
         })
 
     }
-
-
-
-
-
-
-
 }
