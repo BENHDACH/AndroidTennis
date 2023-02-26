@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import com.example.whykotlin.databinding.ActivityAccueilBinding
 import com.example.whykotlin.databinding.ActivityAjoutadhBinding
 import com.google.android.gms.common.internal.Objects.ToStringHelper
@@ -56,6 +57,7 @@ class AjoutadhActivity : AppCompatActivity() {
         //writeNewAdh("adh1","Alexis","kotleen")
 
         supportActionBar?.title = "Ajouter un adhérent"
+
     }
 
     fun greenWash(nbrMois : Int) {
@@ -134,8 +136,7 @@ class AjoutadhActivity : AppCompatActivity() {
                             modifyClick("${Data.theUserName}",binding.newpass2.text.toString())
                         }
                     }
-                    if (!snapshot.exists()) {
-                        Log.e("jo", "marche pas")
+                    else if (!snapshot.exists() && binding.newname2.text.toString()!="AUTO") {
                         writeNewAdh(
                             "${binding.newname2.text.toString()}-id",
                             "${binding.newname2.text.toString()}",
@@ -143,6 +144,9 @@ class AjoutadhActivity : AppCompatActivity() {
                             "1"
                         )
                         noExist();
+                    }
+                    else{
+                        Toast.makeText(this@AjoutadhActivity,"Le nom AUTO est réservé par le système.",Toast.LENGTH_LONG).show()
                     }
 
                 }
@@ -156,6 +160,7 @@ class AjoutadhActivity : AppCompatActivity() {
             })
 
     }
+
 
     private fun noExist() {
         Toast.makeText(this, "Nouvel adhérent enregistré", Toast.LENGTH_LONG).show()
@@ -266,4 +271,3 @@ class AjoutadhActivity : AppCompatActivity() {
     }
 }
 
-//sname
