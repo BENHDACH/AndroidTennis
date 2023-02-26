@@ -1,5 +1,8 @@
 Auteurs : Mohamed BENHDACH, Colleen DESRUISSEAUX, Mathilde HUGUENIN, Alexis MARTIN
+Date de la dernière version : 26/02/2023
 Github : https://github.com/BENHDACH/AndroidTennis
+
+<\Notre projets consiste en une application de réservation pour un club de tennis et possède de nombreuse fonctionnalités orienté client.>
 
 --------------------Page de connexion
 
@@ -14,6 +17,8 @@ Identifiant : Alexis	    Mot de passe : Malaisie
 * En tant qu’adhérent :
 Identifiant : adh	        Mot de passe : ad2
 Identifiant : Erwin	        Mot de passe : Smith
+Identifiant : test          Mot de passe : test
+Note : Vous pourrez en créer (des adhérent) en utilisant un compte admin.
 
 --------------------Page d'Accueil 
 * Si vous êtes connectés en tant qu'administrateur : 
@@ -67,10 +72,19 @@ Dans cette page, l'heure et la date est afficher, vous pouvez cliquer sur "Voir 
 
 * En mode réservation : 
 Choisissez une heure pour la notification, puis appuyez sur « ENREGISTRER » pour confirmer votre réservation.
-La notification apparaît à l'horraire choisie la veille (soit 1 jour avant) sauf si votre réservation ce fait le jour même (elle apparaîtra à l'heure indiqué directement).
+Note : Vous ne pouvez réserver que 2 fois par jour si vous êtes Adhérant. Un admin peut décider que les terrains ne seront pas disponnible quand il le voudra.
+
+La notification apparaît à l'horraire choisie la veille (soit 1 jour avant) sauf si votre réservation ce fait le jour même ou le lendemain dans ces cas elle apparaîtra à l'heure indiqué directement.
+Note 1 : Si votre horaire de notification est dans le passé, la notification apparaîs dans quelques secondes au click.
+Note 2 : Pensez à activer les notifications pour cette application !
 
 * En mode annulation :
 Vous pouvez voir qui est l'utilisateur ayant réservé cette horaire. 
-Appuyez sur « ANNULATION » pour effacer cette réservation.
+Appuyez sur « ANNULATION » pour effacer cette réservation. 
+Note : Seul un admin peut annuler les cours du samedi (dans le cas où ces cours n'auraient pas lieu ou serait déplacer par exemple)
+
+--------------- Merci !!!
+
+
 
 

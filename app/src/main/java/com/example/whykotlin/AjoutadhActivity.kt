@@ -51,11 +51,6 @@ class AjoutadhActivity : AppCompatActivity() {
         }
 
         buttonsListener()
-        //getUser()
-        //modifier pour avoir les données rentrer au clavier
-
-        //writeNewAdh("adh1","Alexis","kotleen")
-
         supportActionBar?.title = "Ajouter un adhérent"
 
     }
@@ -97,10 +92,8 @@ class AjoutadhActivity : AppCompatActivity() {
 
     }
 
-
     fun writeNewAdh(adhId: String, userName: String, adhPsw: String, adhRk: String = "1") {
         val adhr = User(userName, adhPsw, adhRk)
-
         Data.database.reference.child("users").child(adhId).setValue(adhr)
     }
 
@@ -112,9 +105,7 @@ class AjoutadhActivity : AppCompatActivity() {
             .equalTo(binding.newname2.text.toString())
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    Log.d("dataBase", snapshot.toString())
                     if (snapshot.exists()) {
-
                         val user = snapshot.children.first().getValue(User::class.java)
                         binding.enr.visibility = View.GONE //efface le bouton enregistrer
 
@@ -128,7 +119,6 @@ class AjoutadhActivity : AppCompatActivity() {
                             binding.supradh.visibility = View.VISIBLE //on affiche le bouton supprimer
                         }
 
-
                         binding.supradh.setOnClickListener { //on rend le bouton supprimer clicable
                             suppClick(binding.newname2.text.toString());
                         }
@@ -136,6 +126,7 @@ class AjoutadhActivity : AppCompatActivity() {
                             modifyClick("${Data.theUserName}",binding.newpass2.text.toString())
                         }
                     }
+                    //Si il n'existe ou que le nom n'est pas "AUTO" (nom attribué à toute les réservations automatique), alors on le créer
                     else if (!snapshot.exists() && binding.newname2.text.toString()!="AUTO") {
                         writeNewAdh(
                             "${binding.newname2.text.toString()}-id",
@@ -151,11 +142,9 @@ class AjoutadhActivity : AppCompatActivity() {
 
                 }
 
-
                 override fun onCancelled(error: DatabaseError) {
                     Log.e("dataBase", error.toString())
                 }
-
 
             })
 
@@ -169,11 +158,8 @@ class AjoutadhActivity : AppCompatActivity() {
     }
 
     private fun suppClick(userID: String) {
-        //--->
-        //pour verifier si c'est un user de type admin il faut utiliser getUser et faire la suppression dedans, (avec un param par exemple)
-        //C'est necessaire car getUser() utilise un datasnapshot qui est plus lent que le code (un return ne marcherais pas non plus car il faut wait())
-        //--->
-        //On supprime l'utilisateur se trouvant dans users---SonNOM-id
+
+        //On supprime l'utilisateur se trouvant dans users---> SonNOM-id
         Data.database.reference.child("users").child("${userID}-id").removeValue().addOnSuccessListener {
             Toast.makeText(this,"${userID}-id is no more...",Toast.LENGTH_LONG).show()
         }.addOnFailureListener {
@@ -186,87 +172,17 @@ class AjoutadhActivity : AppCompatActivity() {
     }
 
     private fun buttonsListener() {
-
-        /*binding.newname2.setOnClickListener {
-            Log.d("textnewname", "Click sur newname")
-        }*/
-        binding.supradh.visibility = View.GONE //on n'affiche pas le bouton supprimer
+        //on n'affiche pas le bouton supprimer et modifier immediatement
+        binding.supradh.visibility = View.GONE
         binding.modifadh.visibility = View.GONE
 
         binding.retourhome.setOnClickListener {
             val intent = Intent(this, AccueilActivity::class.java)
-
             startActivity(intent)
         }
 
-        //if enregistrement bon
-        /*Data.database.getReference("users")
-            .orderByChild("userName")
-            .equalTo(binding.newname2.text.toString())
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    Log.d("dataBase", snapshot.toString())
-                    val user = snapshot.children.first().getValue(Adherent::class.java)
-                    if (!snapshot.exists()) {*/
         binding.enr.setOnClickListener {
             getUser()
-            //else données rentrer invalide
-
-            //si nom invalide
-            /*if (binding.newname2.text.toString() == "") {
-                                Log.d("textnewname", "VIDE")
-                                //Toast.makeText(this, "nom de l'adhérant vide", Toast.LENGTH_LONG).show()
-                            }
-                            //si mot de passe vide
-                            if (binding.newpass2.text.toString() == "") {
-                                Log.d("textnewname", "PASSWORD VIDE")
-                                //Toast.makeText(this, "mot de passe adhérant vide", Toast.LENGTH_LONG).show()
-                            }
-
-
-                            if ((binding.newname2.text.toString()).isNotEmpty()) { //il faut un nombre pair de caractère pour que ca marche
-                                Log.d("textnewname", "PLEIN")
-                                data()
-                            }
-                            writeNewAdh(
-                                "adhe1",
-                                "${binding.newname2.text.toString()}",
-                                "${binding.newpass2.text.toString()}"
-                            )
-                        }
-                    }*/
-            //si un nom et un mot de passe son entree
-            //else adhérant déjà existant => effacer le bouton ajouter et propose un bouton suprimer
-            //Log.e("verif", "${snapshot}")
-            /*if(snapshot.exists()){
-                                //Toast.makeText(this, "adhérant déjà existant vous pouvez le supprimer", Toast.LENGTH_LONG).show()
-
-                                binding.enr.visibility = View.GONE //efface le bouton enregistrer
-                                binding.supradh.visibility = View.VISIBLE //on affiche le bouton supprimer
-
-                                 binding.supradh.setOnClickListener { //on rend le bouton supprimer clicable
-                                        Log.e("po", "fait partie")
-                                        suppClick()
-                                 }
-
-
-                            }
-
-                }*/
-            /*override fun onCancelled(error: DatabaseError) {
-                    Log.e("dataBase", error.toString())
-                }
-
-            })
-            }*/
-            /*private fun data(){
-        if ((binding.newpass2.text.toString()).isNotEmpty()) {
-            val intent = Intent(this, AccueilActivity::class.java)
-            startActivity(intent)
-        }
-    }*/
-
-
         }
     }
 }

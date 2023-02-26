@@ -1,6 +1,7 @@
 package com.example.whykotlin
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -63,9 +64,10 @@ class ReservationActivity : AppCompatActivity() {
         ShowDate()
         var annulation = intent.getBooleanExtra("Annul",false)
         var clickPlusAdh = true
-        //----->
+
+        //On creer le channel de notif
         createNotificationChannel()
-        //----->
+
         binding.listAd.layoutManager = LinearLayoutManager(this)
         binding.plusadh.setOnClickListener {
             binding.listAd.adapter = AdapterReserv("${intent.getStringExtra("CheminJour")}/${intent.getStringExtra("Heure")}H")
@@ -134,8 +136,7 @@ class ReservationActivity : AppCompatActivity() {
         var intHour = textVerifHour.toIntOrNull()
         var intMinute = textVerifMinute.toIntOrNull()
 
-        Log.e("LastVerif","${binding.hourNumb.text}")
-
+        //On verifie que l'horaire de notification est correct (un Int entre 0-23 H et 0-59 minutes)
         if(intHour != null && intMinute != null && intHour>=0 && intHour<=23 && intMinute>=0 && intMinute<=59){
             //Si l'enregistrement ce fait le jour même ou un jour avant on met la notif au jour actuelle
             booleanChecker = true
@@ -169,8 +170,6 @@ class ReservationActivity : AppCompatActivity() {
                     set(Calendar.MILLISECOND, 0)
                 }
             }
-            // Set the calendar to the desired date and time
-
 
             Log.e("TimeMili","${calendar.timeInMillis}")
 
@@ -180,7 +179,7 @@ class ReservationActivity : AppCompatActivity() {
             if((calendar.timeInMillis-calNow.timeInMillis)<0){
                 calendar = calNow
             }
-            // Set the alarm
+            // On set l'alarme avec l'action , le temps et l'intent.
             alarmManager.setExact(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
@@ -195,26 +194,7 @@ class ReservationActivity : AppCompatActivity() {
         return(booleanChecker)
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("LifeCycle", "MenuActivity onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("LifeCycle", "MenuActivity onStart")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("LifeCycle", "MenuActivity onStart")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("LifeCycle", "MenuActivity onStart")
-    }
+    @SuppressLint("SetTextI18n")
     private fun ShowDate() {
 
         binding.textTime.text = intent.getStringExtra("Heure")+"h"
@@ -235,14 +215,6 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun ShowAdh() {
-        var recupName = Data.theUserName
-        //val user = Data.database.getReference("userName")
-        Log.e("test", "${recupName}")
-        binding.idReserv.text = "${recupName}"
-        
-    }
-
     private fun buttonListener(value:String) {
         val dayPlan = intent.getStringExtra("CheminJour")
         val heure = intent.getStringExtra("Heure")+"H"
@@ -250,18 +222,18 @@ class ReservationActivity : AppCompatActivity() {
         var checkHourMinute : Boolean = false
 
         binding.enregistre.setOnClickListener {
+            //Si on veut réserver
             if(value=="X"){
-
                 checkHourMinute = createNotTime()
                 if(checkHourMinute){
                     val reservConfirm = HeureJour("$value","${Data.theUserName}")
                     Toast.makeText(this, "réservé", Toast.LENGTH_LONG).show()
                     Data.database.reference.child(planning.toString()).child(dayPlan.toString()).child(heure).setValue(reservConfirm)
-
                 }
 
 
             }
+            //Si on veut annuler
             else if(value=="O"){
                 //Par defaut une annulation n'a pas besoin de notif donc peut importe ce qui est entrez en horaire
                 checkHourMinute = true
@@ -270,14 +242,12 @@ class ReservationActivity : AppCompatActivity() {
                 Data.database.reference.child(planning.toString()).child(dayPlan.toString()).child(heure).setValue(reservConfirm)
             }
 
-
             if(checkHourMinute){
                 val intent = Intent(this, AccueilActivity::class.java)
                 startActivity(intent)
             }
 
         }
-
         if(value=="Toast"){
             Toast.makeText(this,"Nombre de réservation maximal atteinte pour ce jour",Toast.LENGTH_LONG).show()
         }
@@ -304,7 +274,8 @@ class ReservationActivity : AppCompatActivity() {
                         if(Data.theUserName == dataSnapshot.getValue(String::class.java).toString()){
                             hourReserved++
                         }
-                        if(hourReserved>=2 && value=="X"){
+                        //Si il y'a eu 2 reservation et qu'on veut encore réservé et que l'on est pas un admin, on ne peut pas.
+                        if(hourReserved>=2 && value=="X" && Data.theUserRank != "0"){
                             //On affiche le message une seule fois
                             if(continuationBoucle){
                                 buttonListener("Toast")
@@ -313,7 +284,7 @@ class ReservationActivity : AppCompatActivity() {
 
                         }
                         //Si il y'a moins de 2 reservation (après avoir verifié de 7h à 21h) ou que l'action et une annulation on continue
-                        else if((hourReserved<2 && i==21) || value=="O"){
+                        else if((hourReserved<2 && i==21) || value=="O" || Data.theUserRank == "0"){
                             buttonListener(value)
                         }
                     }
@@ -325,59 +296,7 @@ class ReservationActivity : AppCompatActivity() {
                     // Handle error
                 }
             })
-
         }
-
     }
-
-
-    /*
-//-------------------> TestNotif
-    private fun scheduleNotification()
-    {
-        val intent = Intent(applicationContext, MyNotif::class.java)
-        val title = "Title R"
-        val message = "R Message"
-        intent.putExtra(titleExtra, title)
-        intent.putExtra(messageExtra, message)
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            notificationID,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val time = getTime()
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            0,
-            pendingIntent
-        )
-    }
-
-
-    private fun getTime(): Long
-    {
-
-        val calendar = Calendar.getInstance()
-        calendar.set(2023, 2, 23, 21, 49)
-        Log.e("CAL","$calendar")
-        return calendar.timeInMillis
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel()
-    {
-        val name = "Notif Channel"
-        val desc = "A Description of the Channel"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(channelID, name, importance)
-        channel.description = desc
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
-    }
-    */
 
 }

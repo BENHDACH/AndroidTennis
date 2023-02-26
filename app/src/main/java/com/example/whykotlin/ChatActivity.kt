@@ -35,10 +35,10 @@ class ChatActivity : AppCompatActivity() {
     lateinit var binding: ActivityChatBinding
 
     //Le lanceur est celui qui a lancer la conversation (si false) ,
-    // sinon le lancer n'est pas le createur de la conversation
+    // sinon le lancer n'est pas le createur de la conversation (defaut = false)
     var switchID = false
 
-    // Afficher le tchat avec showAll (si true donc que l'utilisateur entré est existe)
+    // Afficher le tchat avec showAll (si true donc que l'utilisateur entré existe)
     var showAll = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +49,10 @@ class ChatActivity : AppCompatActivity() {
         var user1 = Data.theUserName
         lateinit var user2 : String
 
-
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.title = "CHAT"
-
 
         binding.recyclerTchat.visibility = View.GONE
         binding.buttonSend.visibility = View.GONE
@@ -98,7 +96,6 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
-
         buttonListener()
     }
 
@@ -111,7 +108,7 @@ class ChatActivity : AppCompatActivity() {
 
     }
     fun writeNewRes(userSend: String, user2: String, message: String) {
-
+        //New Msg ajouter
         Data.database.reference.child("Tchat").child("${userSend}-${user2}").child("msg").setValue(message)
     }
 
@@ -119,6 +116,7 @@ class ChatActivity : AppCompatActivity() {
         var r1  = false
         var r2 = false
         var verif = false
+        //Les conversations sont créer avec un id : Nom1-Nom2 (on verifie les deux possibilités)
         val reference = Data.database.getReference("Tchat/${uCurrent}-${utilisateur}/msg")
         val reference2 = Data.database.getReference("Tchat/${utilisateur}-${uCurrent}/msg")
 
@@ -134,7 +132,7 @@ class ChatActivity : AppCompatActivity() {
 
                 }
                 else {
-                    //L'id écrit de la façon 1 -> UserCurrent-UserContact n'existe pas (a voir l'inverse)
+                    //L'id écrit de la façon 1 -> UserCurrent-UserContact n'existe pas (à voir l'inverse)
                     r1 = false
                 }
             }
@@ -205,6 +203,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun toastMaker(what : String){
+        //Note : On à appris plus tard que l'on peut forcer les Toast, mais on en avait besoin en dehors du snapshot ref avant cela.
         if(what=="user"){
             Toast.makeText(this,"L'utilisateur n'existe pas", Toast.LENGTH_LONG).show()
         }
@@ -215,6 +214,5 @@ class ChatActivity : AppCompatActivity() {
             Toast.makeText(this,"Connexion établie !", Toast.LENGTH_LONG).show()
         }
     }
-
 
 }

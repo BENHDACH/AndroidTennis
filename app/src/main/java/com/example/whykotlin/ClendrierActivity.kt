@@ -32,8 +32,6 @@ data class HeureDispo(val reservStatut: String? = null, var identifiants : Mutab
 
 }
 
-
-
 class ClendrierActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityClendrierBinding
@@ -49,6 +47,7 @@ class ClendrierActivity : AppCompatActivity() {
         binding = ActivityClendrierBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //On créer la data des Calendrier automatique
         generatorDataCal("planningT1")
         generatorDataCal("planningT2")
         generatorDataCal("dispo")
